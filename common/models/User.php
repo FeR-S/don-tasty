@@ -25,14 +25,17 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+    const STATUS_MODERATION = 5;
 
+    const ROLE_ADMIN = 1;
+    const ROLE_LAWYER = 2;
 
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return 'users';
     }
 
     /**
@@ -51,8 +54,56 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'default', 'value' => self::STATUS_MODERATION],
+            ['status', 'in', 'range' => array_keys(self::getStatuses())],
+            ['role', 'in', 'range' => array_keys(self::getRoles())],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getRoles()
+    {
+        return [
+            self::ROLE_ADMIN => 'Админ',
+            self::ROLE_LAWYER => 'Юрист'
+        ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return Yii::$app->user->identity->role != self::ROLE_LAWYER;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLawyer()
+    {
+        return Yii::$app->user->identity->role != self::ROLE_ADMIN;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getStatuses()
+    {
+        return [
+            self::STATUS_ACTIVE => 'Активный',
+            self::STATUS_MODERATION => 'На проверке',
+            self::STATUS_DELETED => 'Удален',
         ];
     }
 

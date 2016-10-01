@@ -74,17 +74,17 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return bool
      */
-    public function isAdmin()
+    public static function isAdmin()
     {
-        return Yii::$app->user->identity->role != self::ROLE_LAWYER;
+        return Yii::$app->user->identity->role == self::ROLE_ADMIN;
     }
 
     /**
      * @return bool
      */
-    public function isLawyer()
+    public static function isLawyer()
     {
-        return Yii::$app->user->identity->role != self::ROLE_ADMIN;
+        return Yii::$app->user->identity->role == self::ROLE_LAWYER;
     }
 
     /**

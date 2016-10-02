@@ -7,34 +7,27 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\ArticleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Articles';
+$this->title = 'Categories';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="article-index">
+<div class="category-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Article', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-//            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
+
             'id',
             'title',
-            'body',
-//            'user_id',
-            'category_id',
-            // 'created_at',
-            // 'updated_at',
-            // 'source',
-            // 'rating',
-            // 'views',
-            // 'status',
+            'parent_category_id',
+
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

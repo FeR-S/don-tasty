@@ -13,21 +13,21 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="article-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create Article', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-//            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
+
             'id',
             'title',
             'body',
-//            'user_id',
+            'user_id',
             'category_id',
             // 'created_at',
             // 'updated_at',
@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'rating',
             // 'views',
             // 'status',
+
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

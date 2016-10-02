@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
 use Yii;
 use common\models\Article;
@@ -8,9 +8,6 @@ use common\models\ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use common\models\User;
-use yii\filters\AccessControl;
-use yii\web\UploadedFile;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -23,20 +20,6 @@ class ArticleController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['index', 'create', 'update'],
-                'rules' => [
-                    [
-                        'actions' => ['index', 'create', 'update'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                        'matchCallback' => function ($rule, $action) {
-                            return User::isAdmin(Yii::$app->user->identity->getId());
-                        }
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -61,10 +44,6 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function actionGuestIndex(){
-
-    }
-
     /**
      * Displays a single Article model.
      * @param integer $id
@@ -75,40 +54,6 @@ class ArticleController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
-    }
-
-    /**
-     * Creates a new Article model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Article();
-
-        if ($model->load(Yii::$app->request->post())) {
-
-            $model->user_id = Yii::$app->user->identity->getId();
-            $model->status  = Article::STATUS_MODERATION;
-
-            $model->image = UploadedFile::getInstance($model, 'image');
-
-//            $model->validate();
-//            var_dump($model->getErrors());die;
-            if($model->validate() and $model->save()){
-                if ($model->upload()) {
-                    // file is uploaded successfully
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            } else {
-                Yii::$app->getSession()->setFlash('danger', 'Возникла ошибка при сохранении статьи. Пожалуйста, свяжитесь с администратором.');
-                return $this->redirect(['index']);
-            }
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
     }
 
     /**
@@ -136,12 +81,12 @@ class ArticleController extends Controller
      * @param integer $id
      * @return mixed
      */
-//    public function actionDelete($id)
-//    {
-//        $this->findModel($id)->delete();
-//
-//        return $this->redirect(['index']);
-//    }
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
 
     /**
      * Finds the Article model based on its primary key value.

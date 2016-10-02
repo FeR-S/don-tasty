@@ -30,6 +30,20 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_ADMIN = 1;
     const ROLE_LAWYER = 2;
 
+    const SPECIALIZATION_GP = 1;
+    const SPECIALIZATION_UP = 2;
+
+
+    /**
+     * @return array
+     */
+    public function getSpecializations() {
+        return [
+            self::SPECIALIZATION_GP => 'Гражданско-правовая',
+            self::SPECIALIZATION_UP => 'Уголовно-правовая'
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -71,12 +85,14 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+
     /**
+     * @param $role_id
      * @return bool
      */
-    public static function isAdmin()
+    public static function isAdmin($role_id)
     {
-        return Yii::$app->user->identity->role == self::ROLE_ADMIN;
+        return $role_id == self::ROLE_ADMIN;
     }
 
     /**

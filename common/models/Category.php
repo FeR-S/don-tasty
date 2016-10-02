@@ -45,4 +45,13 @@ class Category extends \yii\db\ActiveRecord
             'parent_category_id' => 'Parent Category ID',
         ];
     }
+
+    /**
+     * @return array
+     */
+    public static function getCategories()
+    {
+        $categories = Category::find()->all();
+        return $categories;
+    }
 }

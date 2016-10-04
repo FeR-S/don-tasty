@@ -14,25 +14,35 @@ class SignupForm extends Model
     public $password;
 
 
+    public $first_name;
+    public $last_name;
+    public $age;
+    public $work_experience;
+    public $city;
+    public $specialization;
+
+    public $verifyCode;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
+            [['username', 'email', 'password', 'first_name', 'last_name', 'age', 'work_experience', 'city', 'specialization'], 'required'],
+
             ['username', 'trim'],
-            ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
-            ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
 
-            ['password', 'required'],
             ['password', 'string', 'min' => 6],
+
+            ['verifyCode', 'captcha'],
         ];
     }
 
@@ -48,11 +58,19 @@ class SignupForm extends Model
         }
         
         $user = new User();
+        $user->attributes = $this->getAttributes();
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        
-        return $user->save() ? $user : null;
+
+        $user->validate();
+        var_dump($user->getErrors());die;
+
+        if($user->validate() and $user->save()){
+            return $user;
+        } else {
+            return null;
+        }
     }
 }

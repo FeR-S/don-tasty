@@ -153,11 +153,14 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
-            
             if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
+                Yii::$app->session->setFlash('success', 'Спасибо. Регистрация прошла успешна. Ваша учетная запись на модерации. Вам придет оповещение на почту.');
+//                if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();
-                }
+//                }
+            } else {
+                Yii::$app->session->setFlash('danger', 'Возникла ошибка');
+                $this->refresh();
             }
         }
 

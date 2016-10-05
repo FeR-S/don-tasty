@@ -31,6 +31,10 @@ class SignupForm extends Model
         return [
             [['username', 'email', 'password', 'first_name', 'last_name', 'age', 'work_experience', 'city', 'specialization'], 'required'],
 
+            [['age', 'specialization'], 'integer'],
+
+            [['first_name', 'last_name', 'work_experience', 'city'], 'string'],
+
             ['username', 'trim'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
@@ -64,8 +68,8 @@ class SignupForm extends Model
         $user->setPassword($this->password);
         $user->generateAuthKey();
 
-        $user->validate();
-        var_dump($user->getErrors());die;
+//        $user->validate();
+//        var_dump($user->getErrors());die;
 
         if($user->validate() and $user->save()){
             return $user;

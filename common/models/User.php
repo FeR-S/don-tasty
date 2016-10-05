@@ -74,10 +74,11 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['username', 'auth_key', 'password_hash', 'email'], 'required'],
-            [['role', 'status', 'created_at', 'updated_at', 'age', 'specialization'], 'integer'],
+            [['role', 'status', 'age', 'specialization'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email', 'first_name', 'last_name', 'work_experience', 'city'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['email'], 'unique'],
+            [['created_at', 'updated_at'], 'safe'],
             [['password_reset_token'], 'unique'],
             [['username'], 'unique'],
             ['status', 'in', 'range' => array_keys(self::getStatuses())],
@@ -291,7 +292,6 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function beforeValidate()
     {
-        var_dump($this->isNewRecord);die;
         if ($this->isNewRecord) {
             $this->created_at = date("Y-m-d H:i:s");
         } else {

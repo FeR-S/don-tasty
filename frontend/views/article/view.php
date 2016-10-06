@@ -14,7 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-view">
 
-    <h4><?= Html::encode($this->title) ?> <span class="label label-default"><?php echo $model->category->title; ?></span></h4>
+    <h4><?= Html::encode($this->title) ?> <span
+            class="label label-default"><?php echo $model->category->title; ?></span></h4>
     <p>
         Опубликовано: <?php echo $model->created_at; ?>, <b><?php echo $model->user->username; ?></b>
     </p>
@@ -32,7 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <p>
-        <?= Yii::$app->user->identity->role == \common\models\User::ROLE_ADMIN ? Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) : '' ?>
+        <?php
+
+        if (!Yii::$app->user->isGuest) {
+            if(Yii::$app->user->identity->role == \common\models\User::ROLE_ADMIN){
+                Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+            }
+        }
+
+        ?>
         <!--        --><?php //echo Html::a('Delete', ['delete', 'id' => $model->id], [
         //            'class' => 'btn btn-danger',
         //            'data' => [
@@ -43,26 +52,25 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <p>
-        <?php echo '<img src="'. $model->getImagePath($model->id) .'" />'; ?>
+        <?php echo '<img src="' . $model->getImagePath($model->id) . '" />'; ?>
     </p>
 
 
-
-<!--    --><?php //echo DetailView::widget([
-//        'model' => $model,
-//        'attributes' => [
-//            'id',
-//            'title',
-//            'body',
-//            'user_id',
-//            'category_id',
-//            'created_at',
-//            'updated_at',
-//            'source',
-//            'rating',
-//            'views',
-//            'status',
-//        ],
-//    ]) ?>
+    <!--    --><?php //echo DetailView::widget([
+    //        'model' => $model,
+    //        'attributes' => [
+    //            'id',
+    //            'title',
+    //            'body',
+    //            'user_id',
+    //            'category_id',
+    //            'created_at',
+    //            'updated_at',
+    //            'source',
+    //            'rating',
+    //            'views',
+    //            'status',
+    //        ],
+    //    ]) ?>
 
 </div>

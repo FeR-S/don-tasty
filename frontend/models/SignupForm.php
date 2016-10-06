@@ -4,15 +4,16 @@ namespace frontend\models;
 use yii\base\Model;
 use common\models\User;
 
+
 /**
- * Signup form
+ * Class SignupForm
+ * @package frontend\models
  */
 class SignupForm extends Model
 {
     public $username;
     public $email;
     public $password;
-
 
     public $first_name;
     public $last_name;
@@ -46,7 +47,7 @@ class SignupForm extends Model
 
             ['password', 'string', 'min' => 6],
 
-            ['verifyCode', 'captcha'],
+//            ['verifyCode', 'captcha'],
         ];
     }
 
@@ -60,18 +61,13 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-        
+
         $user = new User();
-        $user->attributes = $this->getAttributes();
-        $user->username = $this->username;
-        $user->email = $this->email;
+        $user->setAttributes($this->getAttributes());
         $user->setPassword($this->password);
         $user->generateAuthKey();
 
-//        $user->validate();
-//        var_dump($user->getErrors());die;
-
-        if($user->validate() and $user->save()){
+        if ($user->validate() and $user->save()) {
             return $user;
         } else {
             return null;

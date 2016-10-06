@@ -58,16 +58,6 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
-
-    /**
      * @return array
      */
     public function rules()
@@ -294,6 +284,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         if ($this->isNewRecord) {
             $this->created_at = date("Y-m-d H:i:s");
+            $this->status = self::STATUS_MODERATION;
         } else {
             $this->updated_at = date("Y-m-d H:i:s");
         }

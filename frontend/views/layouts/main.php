@@ -23,40 +23,13 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body class="home">
-<?php $this->beginBody() ?>
-
-<!-- Header -->
-<header id="head">
-    <div class="container">
-        <div class="row">
-            <h1 class="lead">AWESOME, CUSTOMIZABLE, FREE</h1>
-            <p class="tagline">PROGRESSUS: free business bootstrap template by <a
-                    href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus">GetTemplate</a>
-            </p>
-            <p><a class="btn btn-default btn-lg" role="button">MORE INFO</a> <a class="btn btn-action btn-lg"
-                                                                                role="button">DOWNLOAD NOW</a></p>
-        </div>
-    </div>
-</header>
-<!-- /Header -->
-
-<!-- Intro -->
-<div class="container text-center">
-    <br> <br>
-    <h2 class="thin">The best place to tell people why they are here</h2>
-    <p class="text-muted">
-        The difference between involvement and commitment is like an eggs-and-ham breakfast:<br>
-        the chicken was involved; the pig was committed.
-    </p>
-</div>
-<!-- /Intro-->
 
 <?php
 NavBar::begin([
-    'brandLabel' => 'My Company',
+    'brandLabel' => 'Judlit',
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
-        'class' => 'navbar-inverse navbar-fixed-top',
+        'class' => 'navbar navbar-inverse navbar-fixed-top headroom',
     ],
 ]);
 $menuItems = [
@@ -75,8 +48,7 @@ if (Yii::$app->user->isGuest) {
     $menuItems[] = '<li>'
         . Html::beginForm(['/site/logout'], 'post')
         . Html::submitButton(
-            'Logout (' . Yii::$app->user->identity->username . ')',
-            ['class' => 'btn btn-link']
+            'Logout (' . Yii::$app->user->identity->username . ')'
         )
         . Html::endForm()
         . '</li>';
@@ -88,11 +60,89 @@ echo Nav::widget([
 NavBar::end();
 ?>
 
-<div class="container">
+
+<?php $this->beginBody() ?>
+
+
+<?php if (Yii::$app->controller->id == 'site' and Yii::$app->controller->action->id == 'index') { ?>
+    <!-- Header -->
+    <header id="head">
+        <div class="container">
+            <div class="row">
+                <h1 class="lead">AWESOME, CUSTOMIZABLE, FREE</h1>
+                <p class="tagline">PROGRESSUS: free business bootstrap template by <a
+                        href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus">GetTemplate</a>
+                </p>
+                <p><a class="btn btn-default btn-lg" role="button">MORE INFO</a> <a class="btn btn-action btn-lg"
+                                                                                    role="button">DOWNLOAD NOW</a></p>
+            </div>
+        </div>
+    </header>
+    <!-- /Header -->
+
+    <!-- Intro -->
+    <div class="container text-center">
+        <br> <br>
+        <h2 class="thin">The best place to tell people why they are here</h2>
+        <p class="text-muted">
+            The difference between involvement and commitment is like an eggs-and-ham breakfast:<br>
+            the chicken was involved; the pig was committed.
+        </p>
+    </div>
+    <!-- /Intro-->
+
+    <div class="jumbotron top-space">
+        <div class="container">
+
+            <h3 class="text-center thin">Reasons to use this template</h3>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6 highlight">
+                    <div class="h-caption"><h4><i class="fa fa-cogs fa-5"></i>Bootstrap-powered</h4></div>
+                    <div class="h-body text-center">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid adipisci aspernatur.
+                            Soluta quisquam dignissimos earum quasi voluptate. Amet, dignissimos, tenetur vitae dolor
+                            quam iusto assumenda hic reprehenderit?</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 highlight">
+                    <div class="h-caption"><h4><i class="fa fa-flash fa-5"></i>Fat-free</h4></div>
+                    <div class="h-body text-center">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, commodi, sequi quis ad
+                            fugit omnis cumque a libero error nesciunt molestiae repellat quos perferendis numquam
+                            quibusdam rerum repellendus laboriosam reprehenderit! </p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 highlight">
+                    <div class="h-caption"><h4><i class="fa fa-heart fa-5"></i>Creative Commons</h4></div>
+                    <div class="h-body text-center">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, vitae, perferendis,
+                            perspiciatis nobis voluptate quod illum soluta minima ipsam ratione quia numquam eveniet eum
+                            reprehenderit dolorem dicta nesciunt corporis?</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 highlight">
+                    <div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Author's support</h4></div>
+                    <div class="h-body text-center">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, excepturi, maiores, dolorem
+                            quasi reprehenderit illo accusamus nulla minima repudiandae quas ducimus reiciendis odio
+                            sequi atque temporibus facere corporis eos expedita? </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<?php } ?>
+
+
+<div class="container" style="padding-top: 50px">
     <?= Breadcrumbs::widget([
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
     ]) ?>
+
     <?= Alert::widget() ?>
+
     <?= $content ?>
 </div>
 
@@ -145,8 +195,14 @@ NavBar::end();
                 <div class="col-md-6 widget">
                     <h3 class="widget-title">Text widget</h3>
                     <div class="widget-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, dolores, quibusdam architecto voluptatem amet fugiat nesciunt placeat provident cumque accusamus itaque voluptate modi quidem dolore optio velit hic iusto vero praesentium repellat commodi ad id expedita cupiditate repellendus possimus unde?</p>
-                        <p>Eius consequatur nihil quibusdam! Laborum, rerum, quis, inventore ipsa autem repellat provident assumenda labore soluta minima alias temporibus facere distinctio quas adipisci nam sunt explicabo officia tenetur at ea quos doloribus dolorum voluptate reprehenderit architecto sint libero illo et hic.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, dolores, quibusdam
+                            architecto voluptatem amet fugiat nesciunt placeat provident cumque accusamus itaque
+                            voluptate modi quidem dolore optio velit hic iusto vero praesentium repellat commodi ad id
+                            expedita cupiditate repellendus possimus unde?</p>
+                        <p>Eius consequatur nihil quibusdam! Laborum, rerum, quis, inventore ipsa autem repellat
+                            provident assumenda labore soluta minima alias temporibus facere distinctio quas adipisci
+                            nam sunt explicabo officia tenetur at ea quos doloribus dolorum voluptate reprehenderit
+                            architecto sint libero illo et hic.</p>
                     </div>
                 </div>
 
@@ -173,7 +229,8 @@ NavBar::end();
                 <div class="col-md-6 widget">
                     <div class="widget-body">
                         <p class="text-right">
-                            Copyright &copy; 2014, Your name. Designed by <a href="http://gettemplate.com/" rel="designer">gettemplate</a>
+                            Copyright &copy; 2014, Your name. Designed by <a href="http://gettemplate.com/"
+                                                                             rel="designer">gettemplate</a>
                         </p>
                     </div>
                 </div>

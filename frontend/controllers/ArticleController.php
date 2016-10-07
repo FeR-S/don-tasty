@@ -93,8 +93,6 @@ class ArticleController extends Controller
 
             $model->image = UploadedFile::getInstance($model, 'image');
 
-//            $model->validate();
-//            var_dump($model->getErrors());die;
             if($model->validate() and $model->save()){
                 if ($model->upload()) {
                     // file is uploaded successfully

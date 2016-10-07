@@ -71,7 +71,7 @@ class Article extends \yii\db\ActiveRecord
             [['body'], 'string', 'max' => 1024],
             [['source'], 'string', 'max' => 512],
             [['status'], 'in', 'range' => array_keys(self::getStatuses())],
-            [['image'], 'file', 'skipOnEmpty' => false, 'extensions' => 'jpg']
+            [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'jpg']
 
         ];
     }
@@ -91,7 +91,9 @@ class Article extends \yii\db\ActiveRecord
     public function upload()
     {
         if ($this->validate()) {
-            $this->image->saveAs('uploads/article_images/' . $this->id . '.' . $this->image->extension);
+            if($this->image){
+                $this->image->saveAs('uploads/article_images/' . $this->id . '.' . $this->image->extension);
+            }
             return true;
         } else {
             return false;

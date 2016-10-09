@@ -33,22 +33,22 @@ NavBar::begin([
     ],
 ]);
 $menuItems = [
-    ['label' => 'Home', 'url' => ['/site/index']],
-    ['label' => 'About', 'url' => ['/site/about']],
-    ['label' => 'Contact', 'url' => ['/site/contact']],
+    ['label' => 'Главная', 'url' => ['/site/index']],
+//    ['label' => 'О проекте', 'url' => ['/site/about']],
+    ['label' => 'Контакты', 'url' => ['/site/contact']],
 ];
 if (Yii::$app->user->isGuest) {
-    $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-    $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+    $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
+    $menuItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
 } else {
 
     if (Yii::$app->user->identity->role == \common\models\User::ROLE_ADMIN) {
-        $menuItems[] = ['label' => 'Articles', 'url' => ['/article/index']];
+        $menuItems[] = ['label' => 'Статьи', 'url' => ['/article/index']];
     }
     $menuItems[] = '<li>'
         . Html::beginForm(['/site/logout'], 'post')
         . Html::submitButton(
-            'Logout (' . Yii::$app->user->identity->username . ')'
+            'Выход (' . Yii::$app->user->identity->username . ')'
         )
         . Html::endForm()
         . '</li>';
@@ -66,73 +66,76 @@ NavBar::end();
 
 <?php if (Yii::$app->controller->id == 'site' and Yii::$app->controller->action->id == 'index') { ?>
     <!-- Header -->
-    <header id="head">
-        <div class="container">
-            <div class="row">
-                <h1 class="lead">AWESOME, CUSTOMIZABLE, FREE</h1>
-                <p class="tagline">PROGRESSUS: free business bootstrap template by <a
-                        href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus">GetTemplate</a>
-                </p>
-                <p><a class="btn btn-default btn-lg" role="button">MORE INFO</a> <a class="btn btn-action btn-lg"
-                                                                                    role="button">DOWNLOAD NOW</a></p>
-            </div>
-        </div>
-    </header>
+<!--    <header id="head">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <h1 class="lead">AWESOME, CUSTOMIZABLE, FREE</h1>-->
+<!--                <p class="tagline">PROGRESSUS: free business bootstrap template by <a-->
+<!--                        href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus">GetTemplate</a>-->
+<!--                </p>-->
+<!--                <p><a class="btn btn-default btn-lg" role="button">MORE INFO</a> <a class="btn btn-action btn-lg"-->
+<!--                                                                                    role="button">DOWNLOAD NOW</a></p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </header>-->
     <!-- /Header -->
 
     <!-- Intro -->
-    <div class="container text-center">
-        <br> <br>
-        <h2 class="thin">The best place to tell people why they are here</h2>
-        <p class="text-muted">
-            The difference between involvement and commitment is like an eggs-and-ham breakfast:<br>
-            the chicken was involved; the pig was committed.
-        </p>
-    </div>
-    <!-- /Intro-->
-
-    <div class="jumbotron top-space">
-        <div class="container">
-
-            <h3 class="text-center thin">Reasons to use this template</h3>
-
-            <div class="row">
-                <div class="col-md-3 col-sm-6 highlight">
-                    <div class="h-caption"><h4><i class="fa fa-cogs fa-5"></i>Bootstrap-powered</h4></div>
-                    <div class="h-body text-center">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid adipisci aspernatur.
-                            Soluta quisquam dignissimos earum quasi voluptate. Amet, dignissimos, tenetur vitae dolor
-                            quam iusto assumenda hic reprehenderit?</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 highlight">
-                    <div class="h-caption"><h4><i class="fa fa-flash fa-5"></i>Fat-free</h4></div>
-                    <div class="h-body text-center">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, commodi, sequi quis ad
-                            fugit omnis cumque a libero error nesciunt molestiae repellat quos perferendis numquam
-                            quibusdam rerum repellendus laboriosam reprehenderit! </p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 highlight">
-                    <div class="h-caption"><h4><i class="fa fa-heart fa-5"></i>Creative Commons</h4></div>
-                    <div class="h-body text-center">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, vitae, perferendis,
-                            perspiciatis nobis voluptate quod illum soluta minima ipsam ratione quia numquam eveniet eum
-                            reprehenderit dolorem dicta nesciunt corporis?</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 highlight">
-                    <div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Author's support</h4></div>
-                    <div class="h-body text-center">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, excepturi, maiores, dolorem
-                            quasi reprehenderit illo accusamus nulla minima repudiandae quas ducimus reiciendis odio
-                            sequi atque temporibus facere corporis eos expedita? </p>
-                    </div>
-                </div>
-            </div>
-
+    <div class="white-row">
+        <div class="container text-center">
+            <br> <br>
+            <h2 class="thin">The best place to tell people why they are here</h2>
+            <p class="text-muted">
+                The difference between involvement and commitment is like an eggs-and-ham breakfast:<br>
+                the chicken was involved; the pig was committed.
+            </p>
         </div>
     </div>
+
+    <!-- /Intro-->
+
+    <!--    <div class="jumbotron top-space">-->
+    <!--        <div class="container">-->
+    <!---->
+    <!--            <h3 class="text-center thin">Reasons to use this template</h3>-->
+    <!---->
+    <!--            <div class="row">-->
+    <!--                <div class="col-md-3 col-sm-6 highlight">-->
+    <!--                    <div class="h-caption"><h4><i class="fa fa-cogs fa-5"></i>Bootstrap-powered</h4></div>-->
+    <!--                    <div class="h-body text-center">-->
+    <!--                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid adipisci aspernatur.-->
+    <!--                            Soluta quisquam dignissimos earum quasi voluptate. Amet, dignissimos, tenetur vitae dolor-->
+    <!--                            quam iusto assumenda hic reprehenderit?</p>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <div class="col-md-3 col-sm-6 highlight">-->
+    <!--                    <div class="h-caption"><h4><i class="fa fa-flash fa-5"></i>Fat-free</h4></div>-->
+    <!--                    <div class="h-body text-center">-->
+    <!--                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, commodi, sequi quis ad-->
+    <!--                            fugit omnis cumque a libero error nesciunt molestiae repellat quos perferendis numquam-->
+    <!--                            quibusdam rerum repellendus laboriosam reprehenderit! </p>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <div class="col-md-3 col-sm-6 highlight">-->
+    <!--                    <div class="h-caption"><h4><i class="fa fa-heart fa-5"></i>Creative Commons</h4></div>-->
+    <!--                    <div class="h-body text-center">-->
+    <!--                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, vitae, perferendis,-->
+    <!--                            perspiciatis nobis voluptate quod illum soluta minima ipsam ratione quia numquam eveniet eum-->
+    <!--                            reprehenderit dolorem dicta nesciunt corporis?</p>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <div class="col-md-3 col-sm-6 highlight">-->
+    <!--                    <div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Author's support</h4></div>-->
+    <!--                    <div class="h-body text-center">-->
+    <!--                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, excepturi, maiores, dolorem-->
+    <!--                            quasi reprehenderit illo accusamus nulla minima repudiandae quas ducimus reiciendis odio-->
+    <!--                            sequi atque temporibus facere corporis eos expedita? </p>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!---->
+    <!--        </div>-->
+    <!--    </div>-->
 <?php } ?>
 
 

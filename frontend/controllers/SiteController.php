@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Category;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -74,7 +75,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index', [
-            'articles' => Article::getArticles()
+            'articles' => Article::getArticles(),
         ]);
     }
 

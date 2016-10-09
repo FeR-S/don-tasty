@@ -1,3 +1,7 @@
+body {
+    background-color: #F7F5F4!important;
+}
+
 /* Header */
 #head {
     background: #181015 url(../images/bg_header.jpg) no-repeat;
@@ -312,6 +316,10 @@ img.pull-left {
     text-decoration: none;
 }
 
+.blog-post a:hover .blog-post-title {
+    color: #337ab7!important;
+}
+
 .blog-comments-title,
 .blog-post-title {
     /*margin: 5px 0;*/
@@ -434,4 +442,44 @@ img.pull-left {
     padding-top: 5px;
     padding-bottom: 5px;
     /*line-height: 20px;*/
+}
+
+.white-row {
+    background: #fff;
+    padding-bottom: 100px;
+    padding-top: 100px;
+}
+
+.sidebar-module .categories li {
+    margin: 12px auto;
+}
+
+/***********************************************
+* Labels
+***********************************************/
+.label-light {
+    color: #333333;
+}
+
+.label-light,
+.label-light.label-default {
+    background-color: #EBEBEB;
+}
+.label-light.label-inverse {
+    background-color: #D9DCF0;
+}
+.label-light.label-primary {
+    background-color: #CDEAE7;
+}
+.label-light.label-success {
+    background-color: #DBEFDC;
+}
+.label-light.label-info {
+    background-color: #CDEEFC;
+}
+.label-light.label-warning {
+    background-color: #FFDED3;
+}
+.label-light.label-danger {
+    background-color: #FCDAD7;
 }

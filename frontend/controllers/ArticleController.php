@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use common\models\User;
 use yii\filters\AccessControl;
 use yii\web\UploadedFile;
+use yii\data\ActiveDataProvider;
+use common\models\Category;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -72,8 +74,13 @@ class ArticleController extends Controller
      */
     public function actionView($id)
     {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Category::find(),
+        ]);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'categories' => $dataProvider
         ]);
     }
 

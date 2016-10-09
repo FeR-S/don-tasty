@@ -52,21 +52,25 @@ $this->title = 'Judlit';
 <!--                </div>-->
 <!--            </div>-->
 <!--        </div> -->
-        <!-- /row  -->
+<!-- /row  -->
 
 <!--    </div>-->
 <!--</div>-->
 <!-- /Highlights -->
 
+<div class="row">
+    <div class="col-lg-12">
+        <?= ListView::widget([
+            'dataProvider' => $articles,
+            'summary' => false,
+            'options' => [
+                'class' => 'row'
+            ],
+            'itemOptions' => [
+                'class' => 'col-xs-4',
+            ],
+            'itemView' => '/article\_article-item',
+        ]) ?>
+    </div>
+</div>
 
-<?= ListView::widget([
-    'dataProvider' => $articles,
-    'summary' => false,
-    'options' => [
-        'class' => 'row'
-    ],
-    'itemOptions' => [
-        'class' => 'col-lg-3 col-md-3 col-sm-6 col-xs-12',
-    ],
-    'itemView' => '/article\_article-item',
-]) ?>

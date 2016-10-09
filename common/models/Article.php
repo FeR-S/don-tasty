@@ -82,7 +82,12 @@ class Article extends \yii\db\ActiveRecord
      */
     public function getImagePath($id)
     {
-        return Yii::getAlias('@upload') . '/article_images/' . $id . '.jpg';
+        $image_path = '/article_images/' . $id . '.jpg';
+        if (file_exists(Yii::getAlias('@frontend/web/uploads/' . $image_path))) {
+            return Yii::getAlias('@upload') . '/article_images/' . $id . '.jpg';
+        } else {
+            return Yii::getAlias('@upload') . '/article_images/default.png';
+        }
     }
 
     /**
@@ -91,7 +96,7 @@ class Article extends \yii\db\ActiveRecord
     public function upload()
     {
         if ($this->validate()) {
-            if($this->image){
+            if ($this->image) {
                 $this->image->saveAs('uploads/article_images/' . $this->id . '.' . $this->image->extension);
             }
             return true;

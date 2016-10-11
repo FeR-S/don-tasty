@@ -161,4 +161,16 @@ class ArticleController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+
+    /**
+     * @param $category_id
+     * @return ActiveDataProvider
+     */
+    public function getCategoryArticles($category_id){
+        $articles = Article::find()->where(['category_id' => $category_id]);
+        return $dataProvider = new ActiveDataProvider([
+            'query' => self::find(),
+        ]);
+    }
 }

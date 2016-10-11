@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -8,9 +7,15 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 
 ?>
-<li>
-    <?php echo Html::a($model->title, ['article/category', 'id' => $model->id], [
-        'class' => 'label label-light label-primary'
-    ]); ?>
-    <span class="label label-light label-default pull-right">8</span>
-</li>
+
+<?php $articles_count = \common\models\Article::getArticlesCount($model->id);
+if($articles_count > 0) { ?>
+    <li>
+        <?php echo Html::a($model->title, ['article/category', 'id' => $model->id], [
+            'class' => 'label label-light '.$model->label_class
+        ]); ?>
+        <span class="label label-light label-default pull-right"><?php echo \common\models\Article::getArticlesCount($model->id) ;?></span>
+    </li>
+<?php } ?>
+
+

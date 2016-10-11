@@ -15,10 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row" style="margin-top: 30px">
     <div class="col-xs-8">
         <section class="blog-post">
-            <div class="panel panel-default">
+            <div class="panel panel-default ">
                 <div class="panel-body">
                     <div class="blog-post-meta">
-                        <span class="label label-light label-warning"><?php echo $model->category->title; ?></span>
+                        <span class="label label-light <?php echo $model->category->label_class; ?>"><?php echo $model->category->title; ?></span>
                         <p class="blog-post-date pull-right"><?php echo $model->created_at; ?></p>
                     </div>
                     <div class="blog-post-content">
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <p><?php echo $model->user->username; ?></p>
                     </div>
                 </div>
-                <img src="<?php echo $model->getImagePath($model->id); ?>" data-holder-rendered="true">
+                <img class="post-view-image" src="<?php echo $model->getImagePath($model->id); ?>" data-holder-rendered="true">
             </div>
         </section>
     </div>
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="sidebar-module">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4>Categories</h4>
+                    <h4>Категории</h4>
                     <ol class="categories list-unstyled">
                         <?= ListView::widget([
                             'dataProvider' => $categories,

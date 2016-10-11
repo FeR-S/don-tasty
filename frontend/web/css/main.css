@@ -1,5 +1,5 @@
 body {
-    background-color: #F7F5F4!important;
+    background-color: #F7F5F4 !important;
 }
 
 /* Header */
@@ -303,8 +303,6 @@ img.pull-left {
     margin: 0 5px;
 }
 
-
-
 /***********************************************
 * Posts
 ***********************************************/
@@ -317,7 +315,7 @@ img.pull-left {
 }
 
 .blog-post a:hover .blog-post-title {
-    color: #337ab7!important;
+    color: #337ab7 !important;
 }
 
 .blog-comments-title,
@@ -336,7 +334,7 @@ img.pull-left {
 }
 
 /*.blog-post-date {*/
-    /*margin: 6px auto;*/
+/*margin: 6px auto;*/
 /*}*/
 
 .blog-post-share {
@@ -394,46 +392,52 @@ img.pull-left {
     transition: all 0.15s ease;
 }
 
-
-
-
-
 .panel {
     border-radius: 2px;
     border: 0;
     -webkit-box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
 }
+
 .panel > .panel-heading,
 .panel.panel-default > .panel-heading {
     background-color: #eeeeee;
 }
+
 .panel.panel-inverse > .panel-heading {
     background-color: #3f51b5;
 }
+
 .panel.panel-primary > .panel-heading {
     background-color: #009688;
 }
+
 .panel.panel-success > .panel-heading {
     background-color: #4caf50;
 }
+
 .panel.panel-info > .panel-heading {
     background-color: #03a9f4;
 }
+
 .panel.panel-warning > .panel-heading {
     background-color: #ff5722;
 }
+
 .panel.panel-danger > .panel-heading {
     background-color: #f44336;
 }
+
 [class*="panel-"] > .panel-heading {
-    color: rgba(255,255,255, 0.84);
+    color: rgba(255, 255, 255, 0.84);
     border: 0;
 }
+
 .panel-default > .panel-heading,
 .panel:not([class*="panel-"]) > .panel-heading {
-    color: rgba(0,0,0, 0.87);
+    color: rgba(0, 0, 0, 0.87);
 }
+
 .panel-footer {
     background-color: #eeeeee;
 }
@@ -465,21 +469,31 @@ img.pull-left {
 .label-light.label-default {
     background-color: #EBEBEB;
 }
+
 .label-light.label-inverse {
     background-color: #D9DCF0;
 }
+
 .label-light.label-primary {
     background-color: #CDEAE7;
 }
+
 .label-light.label-success {
     background-color: #DBEFDC;
 }
+
 .label-light.label-info {
     background-color: #CDEEFC;
 }
+
 .label-light.label-warning {
     background-color: #FFDED3;
 }
+
 .label-light.label-danger {
     background-color: #FCDAD7;
+}
+
+.blog-post .post-view-image {
+    width: 100%;
 }

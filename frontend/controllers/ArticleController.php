@@ -63,7 +63,11 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function actionGuestIndex(){
+    /**
+     *
+     */
+    public function actionGuestIndex()
+    {
 
     }
 
@@ -96,11 +100,10 @@ class ArticleController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $model->user_id = Yii::$app->user->identity->getId();
-            $model->status  = Article::STATUS_MODERATION;
-
+            $model->status = Article::STATUS_MODERATION;
             $model->image = UploadedFile::getInstance($model, 'image');
 
-            if($model->validate() and $model->save()){
+            if ($model->validate() and $model->save()) {
                 if ($model->upload()) {
                     // file is uploaded successfully
                     return $this->redirect(['view', 'id' => $model->id]);
@@ -125,28 +128,23 @@ class ArticleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+            if ($model->validate() && $model->save()) {
+                if ($model->upload()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } else {
+                Yii::$app->getSession()->setFlash('danger', 'Возникла ошибка при изменении статьи. Пожалуйста, свяжитесь с администратором.');
+                return $this->redirect(['index']);
+            }
         }
-    }
 
-    /**
-     * Deletes an existing Article model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-//    public function actionDelete($id)
-//    {
-//        $this->findModel($id)->delete();
-//
-//        return $this->redirect(['index']);
-//    }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+
+    }
 
     /**
      * Finds the Article model based on its primary key value.

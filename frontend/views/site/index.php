@@ -59,7 +59,7 @@ $this->title = 'Judlit';
 <!-- /Highlights -->
 
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <?= ListView::widget([
             'dataProvider' => $articles,
             'summary' => false,
@@ -67,9 +67,44 @@ $this->title = 'Judlit';
                 'class' => 'row'
             ],
             'itemOptions' => [
-                'class' => 'col-xs-4',
+                'class' => 'col-xs-12',
             ],
             'itemView' => '/article\_article-item',
+            'viewParams' => [
+                'modelKey' => 0
+            ]
+        ]) ?>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <?= ListView::widget([
+            'dataProvider' => $articles,
+            'summary' => false,
+            'options' => [
+                'class' => 'row'
+            ],
+            'itemOptions' => [
+                'class' => 'col-xs-12',
+            ],
+            'itemView' => '/article\_article-item',
+            'viewParams' => [
+                'modelKey' => 1
+            ]
+        ]) ?>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <?= ListView::widget([
+            'dataProvider' => $articles,
+            'summary' => false,
+            'options' => [
+                'class' => 'row'
+            ],
+            'itemOptions' => [
+                'class' => 'col-xs-12',
+            ],
+            'itemView' => '/article\_article-item',
+            'viewParams' => [
+                'modelKey' => 2
+            ]
         ]) ?>
     </div>
 </div>

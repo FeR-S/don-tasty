@@ -72,7 +72,6 @@ class Article extends \yii\db\ActiveRecord
             [['source'], 'string', 'max' => 512],
             [['status'], 'in', 'range' => array_keys(self::getStatuses())],
             [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'jpg']
-
         ];
     }
 
@@ -133,6 +132,16 @@ class Article extends \yii\db\ActiveRecord
         return $dataProvider = new ActiveDataProvider([
             'query' => self::find(),
         ]);
+    }
+
+
+    /**
+     * @param $category_id
+     * @return int|string
+     */
+    public static function getArticlesCount($category_id)
+    {
+        return Article::find()->where(['category_id' => $category_id])->count();
     }
 
     /**

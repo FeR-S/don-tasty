@@ -16,7 +16,7 @@ if ($key % 3 == $modelKey) { ?>
             <img src="<?php echo $model->getImagePath($model->id); ?>" data-holder-rendered="true">
             <div class="panel-body">
                 <div class="blog-post-meta">
-                    <span class="label label-light label-info"><?php echo $model->category->title; ?></span>
+                    <span class="label label-light <?php echo $model->category->label_class; ?>"><?php echo $model->category->title; ?></span>
                     <p class="blog-post-date pull-right"><?php echo $model->created_at; ?></p>
                 </div>
                 <div class="blog-post-content">

@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'class' => 'categories list-unstyled',
                                 'tag' => 'ol'
                             ],
-                            'itemView' => '/category\_category-item',
+                            'itemView' => '/category/_category-item',
                         ]) ?>
                     </ol>
                 </div>

@@ -69,7 +69,7 @@ $this->title = 'Judlit';
             'itemOptions' => [
                 'class' => 'col-xs-12',
             ],
-            'itemView' => '/article\_article-item',
+            'itemView' => '/article/_article-item',
             'viewParams' => [
                 'modelKey' => 0
             ]
@@ -85,7 +85,7 @@ $this->title = 'Judlit';
             'itemOptions' => [
                 'class' => 'col-xs-12',
             ],
-            'itemView' => '/article\_article-item',
+            'itemView' => '/article/_article-item',
             'viewParams' => [
                 'modelKey' => 1
             ]
@@ -101,7 +101,7 @@ $this->title = 'Judlit';
             'itemOptions' => [
                 'class' => 'col-xs-12',
             ],
-            'itemView' => '/article\_article-item',
+            'itemView' => '/article/_article-item',
             'viewParams' => [
                 'modelKey' => 2
             ]

@@ -7,7 +7,8 @@ use yii\widgets\ListView;
 /* @var $model common\models\Article */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Статьи', 'url' => ['list']];
+$this->params['breadcrumbs'][] = ['label' => $model->category->title, 'url' => ['category', 'id' => $model->category->id]];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

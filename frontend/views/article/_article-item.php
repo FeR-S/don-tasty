@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\Article */
 /* @var $form yii\widgets\ActiveForm */
 
-if ($key % 3 == $modelKey) { ?>
+if ($index % $modelIndex == $modelKey) { ?>
     <section class="blog-post">
         <div class="panel panel-default">
             <!--        <div>-->

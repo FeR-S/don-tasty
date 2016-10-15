@@ -497,3 +497,8 @@ img.pull-left {
 .blog-post .post-view-image {
     width: 100%;
 }
+
+.categories .label-light.label-inverse:hover,
+.categories .label-light.label-inverse:focus {
+    background-color: #6f79b1;
+}

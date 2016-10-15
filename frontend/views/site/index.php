@@ -71,7 +71,8 @@ $this->title = 'Judlit';
             ],
             'itemView' => '/article/_article-item',
             'viewParams' => [
-                'modelKey' => 0
+                'modelKey' => 0,
+                'modelIndex' => 3
             ]
         ]) ?>
     </div>
@@ -87,7 +88,8 @@ $this->title = 'Judlit';
             ],
             'itemView' => '/article/_article-item',
             'viewParams' => [
-                'modelKey' => 1
+                'modelKey' => 1,
+                'modelIndex' => 3
             ]
         ]) ?>
     </div>
@@ -103,7 +105,8 @@ $this->title = 'Judlit';
             ],
             'itemView' => '/article/_article-item',
             'viewParams' => [
-                'modelKey' => 2
+                'modelKey' => 2,
+                'modelIndex' => 3
             ]
         ]) ?>
     </div>

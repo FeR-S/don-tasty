@@ -128,22 +128,41 @@ class ArticleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post())) {
-            $model->image = UploadedFile::getInstance($model, 'image');
-            if ($model->validate() && $model->save()) {
-                if ($model->upload()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->user_id == Yii::$app->user->identity->getId()) {
+            if ($model->load(Yii::$app->request->post())) {
+                $model->image = UploadedFile::getInstance($model, 'image');
+                if ($model->validate() && $model->save()) {
+                    if ($model->upload()) {
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                } else {
+                    Yii::$app->getSession()->setFlash('danger', 'Возникла ошибка при изменении статьи. Пожалуйста, свяжитесь с администратором.');
+                    return $this->redirect(['index']);
                 }
-            } else {
-                Yii::$app->getSession()->setFlash('danger', 'Возникла ошибка при изменении статьи. Пожалуйста, свяжитесь с администратором.');
-                return $this->redirect(['index']);
             }
-        }
 
-        return $this->render('update', [
-            'model' => $model,
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } else {
+            $this->redirect(['index']);
+        }
+    }
+
+    public function actionList()
+    {
+        $searchModel = new ArticleSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $categories = new ActiveDataProvider([
+            'query' => Category::find(),
         ]);
 
+        return $this->render('list', [
+            'searchModel' => $searchModel,
+            'articles' => $dataProvider,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -162,15 +181,34 @@ class ArticleController extends Controller
         }
     }
 
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionCategory($id)
+    {
+        $model = Category::findOne($id);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Category::find(),
+        ]);
+
+        return $this->render('category_articles', [
+            'model' => $model,
+            'articles' => self::getCategoryArticles($id),
+            'categories' => $dataProvider
+        ]);
+    }
 
     /**
      * @param $category_id
      * @return ActiveDataProvider
      */
-    public function getCategoryArticles($category_id){
+    public static function getCategoryArticles($category_id)
+    {
         $articles = Article::find()->where(['category_id' => $category_id]);
         return $dataProvider = new ActiveDataProvider([
-            'query' => self::find(),
+            'query' => $articles,
         ]);
     }
 }

@@ -60,7 +60,7 @@ class ArticleSearch extends Article
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => Yii::$app->user->identity->getId(),
+            'user_id' => $this->user_id,
             'category_id' => $this->category_id,
 //            'created_at' => $this->created_at,
 //            'updated_at' => $this->updated_at,

@@ -39,7 +39,6 @@ $menuItems = [
 ];
 if (Yii::$app->user->isGuest) {
     $menuItems[] = ['label' => 'Статьи', 'url' => ['/article/list']];
-    $menuItems[] = ['label' => 'Категории', 'url' => ['/category/list']];
     $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
     $menuItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
 } else {
@@ -84,7 +83,7 @@ NavBar::end();
     <div class="white-row">
         <div class="container text-center">
             <br> <br>
-            <h2 class="thin"></h2>
+            <h2 class="thin">Юридическая грамотность</h2>
             <p class="text-muted">
                 The difference between involvement and commitment is like an eggs-and-ham breakfast:<br>
                 the chicken was involved; the pig was committed.

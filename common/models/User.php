@@ -121,12 +121,14 @@ class User extends ActiveRecord implements IdentityInterface
         return $role_id == self::ROLE_ADMIN;
     }
 
+
     /**
+     * @param $role_id
      * @return bool
      */
-    public static function isLawyer()
+    public static function isLawyer($role_id)
     {
-        return Yii::$app->user->identity->role == self::ROLE_LAWYER;
+        return $role_id == self::ROLE_LAWYER;
     }
 
     /**
@@ -280,6 +282,9 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidate()
     {
         if ($this->isNewRecord) {

@@ -38,13 +38,13 @@ $menuItems = [
     ['label' => 'Контакты', 'url' => ['/site/contact']],
 ];
 if (Yii::$app->user->isGuest) {
+    $menuItems[] = ['label' => 'Статьи', 'url' => ['/article/list']];
+    $menuItems[] = ['label' => 'Категории', 'url' => ['/category/list']];
     $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
     $menuItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
 } else {
-
-    if (Yii::$app->user->identity->role == \common\models\User::ROLE_ADMIN) {
-        $menuItems[] = ['label' => 'Статьи', 'url' => ['/article/index']];
-    }
+    $menuItems[] = ['label' => 'Статьи', 'url' => ['/article/index']];
+    $menuItems[] = ['label' => 'Категории', 'url' => ['/category/index']];
     $menuItems[] = '<li>'
         . Html::beginForm(['/site/logout'], 'post')
         . Html::submitButton(
@@ -84,7 +84,7 @@ NavBar::end();
     <div class="white-row">
         <div class="container text-center">
             <br> <br>
-            <h2 class="thin">The best place to tell people why they are here</h2>
+            <h2 class="thin"></h2>
             <p class="text-muted">
                 The difference between involvement and commitment is like an eggs-and-ham breakfast:<br>
                 the chicken was involved; the pig was committed.

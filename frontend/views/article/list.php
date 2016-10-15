@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Статьи', 'url' => ['list']];
             </div>
         </div>
     </div>
-    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="sidebar-module">
             <div class="panel panel-default">
                 <div class="panel-body">

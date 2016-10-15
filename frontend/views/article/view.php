@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row" style="margin-top: 30px">
-    <div class="col-xs-8">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
         <section class="blog-post">
             <div class="panel panel-default ">
                 <div class="panel-body">
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </section>
     </div>
-    <div class="col-xs-4">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="sidebar-module">
             <div class="panel panel-default">
                 <div class="panel-body">

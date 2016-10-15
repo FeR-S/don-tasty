@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row" style="margin-top: 30px">
-    <div class="col-xs-8">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <?= ListView::widget([
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-    <div class="col-xs-4">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
         <div class="sidebar-module">
             <div class="panel panel-default">
                 <div class="panel-body">

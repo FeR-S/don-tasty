@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
+            'label_class',
             'parent_category_id',
 
             ['class' => 'yii\grid\ActionColumn'],

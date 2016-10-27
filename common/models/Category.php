@@ -15,8 +15,8 @@ use Yii;
 class Category extends \yii\db\ActiveRecord
 {
 
-    const LABEL_DEFAULT = 'label-default';
     const LABEL_INVERSE = 'label-inverse';
+    const LABEL_DEFAULT = 'label-default';
     const LABEL_PRIMARY = 'label-primary';
     const LABEL_SUCCESS = 'label-success';
     const LABEL_INFO = 'label-info';
@@ -38,13 +38,13 @@ class Category extends \yii\db\ActiveRecord
     public function getLabelsArray()
     {
         return [
-            self::LABEL_DEFAULT,
-            self::LABEL_INVERSE,
-            self::LABEL_PRIMARY,
-            self::LABEL_SUCCESS,
-            self::LABEL_INFO,
-            self::LABEL_WARNING,
-            self::LABEL_DANGER,
+            self::LABEL_DEFAULT => 'LABEL_DEFAULT',
+            self::LABEL_INVERSE => 'LABEL_INVERSE',
+            self::LABEL_PRIMARY => 'LABEL_PRIMARY',
+            self::LABEL_SUCCESS => 'LABEL_SUCCESS',
+            self::LABEL_INFO => 'LABEL_INFO',
+            self::LABEL_WARNING => 'LABEL_WARNING',
+            self::LABEL_DANGER => 'LABEL_DANGER',
         ];
     }
 

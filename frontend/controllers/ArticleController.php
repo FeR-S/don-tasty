@@ -64,14 +64,6 @@ class ArticleController extends Controller
     }
 
     /**
-     *
-     */
-    public function actionGuestIndex()
-    {
-
-    }
-
-    /**
      * Displays a single Article model.
      * @param integer $id
      * @return mixed
@@ -149,6 +141,9 @@ class ArticleController extends Controller
         }
     }
 
+    /**
+     * @return string
+     */
     public function actionList()
     {
         $searchModel = new ArticleSearch();

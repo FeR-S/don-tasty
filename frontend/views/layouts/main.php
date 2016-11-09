@@ -26,7 +26,7 @@ AppAsset::register($this);
 
 <?php
 NavBar::begin([
-    'brandLabel' => 'Judlit',
+    'brandLabel' => 'Judlit - Юридическая грамотность',
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         'class' => 'navbar navbar-inverse navbar-fixed-top headroom',

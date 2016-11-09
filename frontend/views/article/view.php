@@ -25,8 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="blog-post-content">
                         <h2 class="blog-post-title"><?php echo $model->title; ?></h2>
                         <p><?php echo $model->body; ?></p>
-                        <p><?php echo $model->source; ?></p>
-                        <p><?php echo $model->user->username; ?></p>
+                        <p><b>Источник: </b><?php echo $model->source; ?></p>
+<!--                        <p>--><?php //echo $model->user->username; ?><!--</p>-->
                     </div>
                 </div>
                 <img class="post-view-image" src="<?php echo $model->getImagePath($model->id); ?>" data-holder-rendered="true">
@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 if (!Yii::$app->user->isGuest) {
 //    if(Yii::$app->user->identity->role == \common\models\User::ROLE_ADMIN){
-    echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+    echo Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
 //    }
 }
 

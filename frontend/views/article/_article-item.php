@@ -27,9 +27,9 @@ if ($index % $modelIndex == $modelKey) { ?>
                     <p><?php echo mb_substr($model->body, 0, 100); ?></p>
                     <?php echo Html::a('Подробнее', ['article/view', 'id' => $model->id], [
                     ]); ?>
-                    <a class="blog-post-share pull-right" href="#">
-                        <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
-                    </a>
+<!--                    <a class="blog-post-share pull-right" href="#">-->
+<!--                        <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>-->
+<!--                    </a>-->
                 </div>
             </div>
         </div>

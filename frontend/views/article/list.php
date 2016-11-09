@@ -6,6 +6,8 @@ use yii\widgets\ListView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
 
+
+$this->title = 'Статьи';
 $this->params['breadcrumbs'][] = ['label' => 'Статьи', 'url' => ['list']];
 
 ?>

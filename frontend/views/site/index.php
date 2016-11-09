@@ -5,7 +5,7 @@ use yii\bootstrap\Html;
 
 /* @var $this yii\web\View */
 
-$this->title = 'Judlit';
+$this->title = 'Judlit - юридическая грамотность.';
 
 ?>
 

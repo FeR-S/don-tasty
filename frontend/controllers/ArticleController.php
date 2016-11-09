@@ -25,6 +25,12 @@ class ArticleController extends Controller
     public function behaviors()
     {
         return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['index', 'create', 'update'],
@@ -37,12 +43,6 @@ class ArticleController extends Controller
                             return (User::isLawyer(Yii::$app->user->identity->getId()) or User::isAdmin(Yii::$app->user->identity->getId())) ? true : false;
                         }
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
                 ],
             ],
         ];

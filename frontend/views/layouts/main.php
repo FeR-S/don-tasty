@@ -85,8 +85,8 @@ NavBar::end();
             <br> <br>
             <h2 class="thin">Юридическая грамотность</h2>
             <p class="text-muted">
-                The difference between involvement and commitment is like an eggs-and-ham breakfast:<br>
-                the chicken was involved; the pig was committed.
+                Правовая сторона неприятных ситуаций, с которыми мы, порой, сталкиваемся в жизни.<br>
+                В статьях данного сервиса представлены краткие ответы на возникающие в таких ситуациях вопросы - ничего лишнего.
             </p>
         </div>
     </div>

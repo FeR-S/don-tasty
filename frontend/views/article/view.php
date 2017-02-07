@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\ListView;
+
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
 
@@ -24,12 +25,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="blog-post-content">
                         <h2 class="blog-post-title"><?php echo $model->title; ?></h2>
+<!--                        <blockquote>--><?php //echo $model->announcement; ?><!--</blockquote>-->
+
+                        <div class="bs-callout bs-callout-danger tezis">
+                            <h4>Тезис:</h4>
+                            <div class="text">
+                                <?php echo $model->announcement; ?>
+                            </div>
+                        </div>
+
                         <p><?php echo $model->body; ?></p>
                         <p><b>Источник: </b><?php echo $model->source; ?></p>
-<!--                        <p>--><?php //echo $model->user->username; ?><!--</p>-->
+                        <!--                        <p>--><?php //echo $model->user->username; ?><!--</p>-->
                     </div>
                 </div>
-                <img class="post-view-image" src="<?php echo $model->getImagePath($model->id); ?>" data-holder-rendered="true">
+                <img class="post-view-image" src="<?php echo $model->getImagePath(); ?>" data-holder-rendered="true">
             </div>
         </section>
     </div>

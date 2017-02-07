@@ -26,7 +26,7 @@ AppAsset::register($this);
 
 <?php
 NavBar::begin([
-    'brandLabel' => 'Judlit - Юридическая грамотность',
+    'brandLabel' => 'Judlit',
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         'class' => 'navbar navbar-inverse navbar-fixed-top headroom',
@@ -65,18 +65,18 @@ NavBar::end();
 
 <?php if (Yii::$app->controller->id == 'site' and Yii::$app->controller->action->id == 'index') { ?>
     <!-- Header -->
-<!--    <header id="head">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <h1 class="lead">AWESOME, CUSTOMIZABLE, FREE</h1>-->
-<!--                <p class="tagline">PROGRESSUS: free business bootstrap template by <a-->
-<!--                        href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus">GetTemplate</a>-->
-<!--                </p>-->
-<!--                <p><a class="btn btn-default btn-lg" role="button">MORE INFO</a> <a class="btn btn-action btn-lg"-->
-<!--                                                                                    role="button">DOWNLOAD NOW</a></p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </header>-->
+    <!--    <header id="head">-->
+    <!--        <div class="container">-->
+    <!--            <div class="row">-->
+    <!--                <h1 class="lead">AWESOME, CUSTOMIZABLE, FREE</h1>-->
+    <!--                <p class="tagline">PROGRESSUS: free business bootstrap template by <a-->
+    <!--                        href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus">GetTemplate</a>-->
+    <!--                </p>-->
+    <!--                <p><a class="btn btn-default btn-lg" role="button">MORE INFO</a> <a class="btn btn-action btn-lg"-->
+    <!--                                                                                    role="button">DOWNLOAD NOW</a></p>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </header>-->
     <!-- /Header -->
 
     <!-- Intro -->
@@ -86,7 +86,8 @@ NavBar::end();
             <h2 class="thin">Юридическая грамотность</h2>
             <p class="text-muted">
                 Правовая сторона неприятных ситуаций, с которыми мы, порой, сталкиваемся в жизни.<br>
-                В статьях данного сервиса представлены краткие ответы на возникающие в таких ситуациях вопросы - ничего лишнего.
+                В статьях данного сервиса представлены краткие ответы на возникающие в таких ситуациях вопросы - ничего
+                лишнего.
             </p>
         </div>
     </div>
@@ -152,14 +153,14 @@ NavBar::end();
 <!--<section id="social">-->
 <!--    <div class="container">-->
 <!--        <div class="wrapper clearfix">-->
-            <!-- AddThis Button BEGIN -->
+<!-- AddThis Button BEGIN -->
 <!--            <div class="addthis_toolbox addthis_default_style">-->
 <!--                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>-->
 <!--                <a class="addthis_button_tweet"></a>-->
 <!--                <a class="addthis_button_linkedin_counter"></a>-->
 <!--                <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>-->
 <!--            </div>-->
-            <!-- AddThis Button END -->
+<!-- AddThis Button END -->
 <!--        </div>-->
 <!--    </div>-->
 <!--</section>-->
@@ -187,18 +188,17 @@ NavBar::end();
                     </div>
                 </div>
 
-<!--                <div class="col-md-3 widget">-->
-<!--                    <h3 class="widget-title">Мы в соц. сетях</h3>-->
-<!--                    <div class="widget-body">-->
-<!--                        <p class="follow-me-icons">-->
-<!--                            <a href=""><i class="fa fa-twitter fa-2"></i></a>-->
-<!--                            <a href=""><i class="fa fa-dribbble fa-2"></i></a>-->
-<!--                            <a href=""><i class="fa fa-github fa-2"></i></a>-->
-<!--                            <a href=""><i class="fa fa-facebook fa-2"></i></a>-->
-<!--                        </p>-->
-<!--                    </div>-->
-<!--                </div>-->
-
+                <!--                <div class="col-md-3 widget">-->
+                <!--                    <h3 class="widget-title">Мы в соц. сетях</h3>-->
+                <!--                    <div class="widget-body">-->
+                <!--                        <p class="follow-me-icons">-->
+                <!--                            <a href=""><i class="fa fa-twitter fa-2"></i></a>-->
+                <!--                            <a href=""><i class="fa fa-dribbble fa-2"></i></a>-->
+                <!--                            <a href=""><i class="fa fa-github fa-2"></i></a>-->
+                <!--                            <a href=""><i class="fa fa-facebook fa-2"></i></a>-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
 
             </div> <!-- /row of widgets -->
@@ -213,7 +213,7 @@ NavBar::end();
                     <div class="widget-body">
                         <p class="simplenav">
                             <a href="/">Главная</a> |
-<!--                            <a href="/site/contact">Контакты</a> |-->
+                            <!--                            <a href="/site/contact">Контакты</a> |-->
                             <a href="/article/list">Статьи</a>
                         </p>
                     </div>

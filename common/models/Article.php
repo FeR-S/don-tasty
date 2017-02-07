@@ -64,26 +64,27 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'created_at', 'status', 'category_id', 'body'], 'required'],
+            [['title', 'created_at', 'status', 'category_id', 'body', 'announcement'], 'required'],
             [['user_id', 'category_id', 'rating', 'views', 'status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 255],
-            [['body'], 'string', 'max' => 1024],
+            [['body'], 'string', 'max' => 2048],
+            [['announcement'], 'string', 'max' => 1024],
             [['source'], 'string', 'max' => 512],
             [['status'], 'in', 'range' => array_keys(self::getStatuses())],
             [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'jpg']
         ];
     }
 
+
     /**
-     * @param $id
      * @return string
      */
-    public function getImagePath($id)
+    public function getImagePath()
     {
-        $image_path = '/article_images/' . $id . '.jpg';
+        $image_path = '/article_images/' . $this->id . '.jpg';
         if (file_exists(Yii::getAlias('@frontend/web/uploads/' . $image_path))) {
-            return Yii::getAlias('@upload') . '/article_images/' . $id . '.jpg';
+            return Yii::getAlias('@upload') . '/article_images/' . $this->id . '.jpg';
         } else {
             return Yii::getAlias('@upload') . '/article_images/default.png';
         }
@@ -111,16 +112,18 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'body' => 'Body',
+            'title' => 'Заголовок',
+            'body' => 'Текст',
             'user_id' => 'User ID',
             'category_id' => 'Category ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'source' => 'Source',
+            'source' => 'Источник информации для статьи',
             'rating' => 'Rating',
             'views' => 'Views',
             'status' => 'Status',
+            'image' => 'Изображение',
+            'announcement' => 'Краткий ответ',
         ];
     }
 

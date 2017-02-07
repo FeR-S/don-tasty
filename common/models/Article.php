@@ -98,7 +98,7 @@ class Article extends ActiveRecord
 
     public function getRoute()
     {
-        return ['article/view', 'slug' => $this->slug];
+        return ['article/view', 'id' => $this->id, 'slug' => $this->slug];
     }
 
     public function getUrl()

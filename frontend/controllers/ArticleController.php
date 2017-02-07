@@ -90,25 +90,18 @@ class ArticleController extends Controller
         $model = new Article();
 
         if ($model->load(Yii::$app->request->post())) {
-
             $model->user_id = Yii::$app->user->identity->getId();
             $model->status = Article::STATUS_MODERATION;
             $model->image = UploadedFile::getInstance($model, 'image');
 
-            if ($model->validate() and $model->save()) {
-                if ($model->upload()) {
-                    // file is uploaded successfully
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            } else {
-                Yii::$app->getSession()->setFlash('danger', 'Возникла ошибка при сохранении статьи. Пожалуйста, свяжитесь с администратором.');
-                return $this->redirect(['index']);
+            if ($model->validate() and $model->save() and $model->upload()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -117,7 +110,8 @@ class ArticleController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public
+    function actionUpdate($id)
     {
         $model = $this->findModel($id);
         if ($model->user_id == Yii::$app->user->identity->getId()) {
@@ -144,7 +138,8 @@ class ArticleController extends Controller
     /**
      * @return string
      */
-    public function actionList()
+    public
+    function actionList()
     {
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -167,7 +162,8 @@ class ArticleController extends Controller
      * @return Article the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected
+    function findModel($id)
     {
         if (($model = Article::findOne($id)) !== null) {
             return $model;
@@ -180,7 +176,8 @@ class ArticleController extends Controller
      * @param $id
      * @return string
      */
-    public function actionCategory($id)
+    public
+    function actionCategory($id)
     {
         $model = Category::findOne($id);
 
@@ -198,7 +195,8 @@ class ArticleController extends Controller
     /**
      * @return bool
      */
-    public function actionRemoveArticleImage()
+    public
+    function actionRemoveArticleImage()
     {
         if (Yii::$app->request->isAjax) {
             $model_id = Yii::$app->request->post()['model_id'];
@@ -215,7 +213,8 @@ class ArticleController extends Controller
      * @param $category_id
      * @return ActiveDataProvider
      */
-    public static function getCategoryArticles($category_id)
+    public
+    static function getCategoryArticles($category_id)
     {
         $articles = Article::find()->where(['category_id' => $category_id]);
         return $dataProvider = new ActiveDataProvider([

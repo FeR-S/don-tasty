@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
 //            'body',
 //            'user_id',
-            'category_id',
             [
                 'attribute' => 'category_id',
                 'value' => function($model){

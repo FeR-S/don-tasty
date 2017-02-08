@@ -27,6 +27,9 @@ class Category extends ActiveRecord
     const LABEL_DANGER = 'label-danger';
     const LABEL_INFO = 'label-info';
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -105,9 +108,20 @@ class Category extends ActiveRecord
         return $categories;
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return '/articles/' . $this->slug;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getArticles()
+    {
+        return $this->hasMany(Article::className(), ['category_id' => 'id']);
     }
 
     /**

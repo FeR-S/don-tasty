@@ -19,7 +19,7 @@ class ArticleSearch extends Article
     {
         return [
             [['id', 'user_id', 'category_id', 'rating', 'views', 'status'], 'integer'],
-            [['title', 'body', 'created_at', 'updated_at', 'source'], 'safe'],
+            [['title', 'body', 'created_at', 'updated_at', 'source', 'slug'], 'safe'],
         ];
     }
 

@@ -64,18 +64,17 @@ class ArticleController extends Controller
     }
 
     /**
-     * Displays a single Article model.
-     * @param integer $id
-     * @return mixed
+     * @param $article_slug
+     * @return string
      */
-    public function actionView($id)
+    public function actionView($article_slug)
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Category::find(),
         ]);
 
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModelBySlug($article_slug),
             'categories' => $dataProvider
         ]);
     }
@@ -90,25 +89,18 @@ class ArticleController extends Controller
         $model = new Article();
 
         if ($model->load(Yii::$app->request->post())) {
-
             $model->user_id = Yii::$app->user->identity->getId();
             $model->status = Article::STATUS_MODERATION;
             $model->image = UploadedFile::getInstance($model, 'image');
 
-            if ($model->validate() and $model->save()) {
-                if ($model->upload()) {
-                    // file is uploaded successfully
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            } else {
-                Yii::$app->getSession()->setFlash('danger', 'Возникла ошибка при сохранении статьи. Пожалуйста, свяжитесь с администратором.');
-                return $this->redirect(['index']);
+            if ($model->validate() and $model->save() and $model->upload()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -147,7 +139,7 @@ class ArticleController extends Controller
     public function actionList()
     {
         $searchModel = new ArticleSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, true);
 
         $categories = new ActiveDataProvider([
             'query' => Category::find(),
@@ -161,11 +153,9 @@ class ArticleController extends Controller
     }
 
     /**
-     * Finds the Article model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Article the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return static
+     * @throws NotFoundHttpException
      */
     protected function findModel($id)
     {
@@ -177,12 +167,26 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param $id
+     * @param $slug
+     * @return array|null|\yii\db\ActiveRecord
+     * @throws NotFoundHttpException
+     */
+    protected function findModelBySlug($slug)
+    {
+        if (($model = Article::find()->where(['slug' => $slug])->one()) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    /**
+     * @param $category_slug
      * @return string
      */
-    public function actionCategory($id)
+    public function actionCategory($category_slug)
     {
-        $model = Category::findOne($id);
+        $model = Category::find()->where(['slug' => $category_slug])->one();
 
         $dataProvider = new ActiveDataProvider([
             'query' => Category::find(),
@@ -190,7 +194,7 @@ class ArticleController extends Controller
 
         return $this->render('category_articles', [
             'model' => $model,
-            'articles' => self::getCategoryArticles($id),
+            'articles' => self::getCategoryArticles($model->id),
             'categories' => $dataProvider
         ]);
     }

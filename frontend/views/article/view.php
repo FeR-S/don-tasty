@@ -9,7 +9,7 @@ use yii\widgets\ListView;
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Статьи', 'url' => ['list']];
-$this->params['breadcrumbs'][] = ['label' => $model->category->title, 'url' => ['category', 'id' => $model->category->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->category->title, 'url' => $model->category->url];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <h2 class="blog-post-title"><?php echo $model->title; ?></h2>
 <!--                        <blockquote>--><?php //echo $model->announcement; ?><!--</blockquote>-->
 
-                        <div class="bs-callout bs-callout-danger tezis">
+                        <div class="bs-callout bs-callout-info tezis">
                             <h4>Тезис:</h4>
                             <div class="text">
                                 <?php echo $model->announcement; ?>

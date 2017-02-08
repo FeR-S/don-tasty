@@ -139,7 +139,7 @@ class ArticleController extends Controller
     public function actionList()
     {
         $searchModel = new ArticleSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, true);
 
         $categories = new ActiveDataProvider([
             'query' => Category::find(),

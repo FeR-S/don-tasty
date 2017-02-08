@@ -2,10 +2,10 @@
 
 namespace common\models;
 
+use common\models\Article;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Article;
 
 /**
  * ArticleSearch represents the model behind the search form about `common\models\Article`.
@@ -32,16 +32,19 @@ class ArticleSearch extends Article
         return Model::scenarios();
     }
 
+
     /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param $params
+     * @param bool $public
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $public = false)
     {
         $query = Article::find();
+
+        if ($public) {
+            $query->where(['status' => Article::STATUS_PUBLIC]);
+        }
 
         // add conditions that should always apply here
 

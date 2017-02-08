@@ -94,7 +94,7 @@ class ArticleController extends Controller
             $model->image = UploadedFile::getInstance($model, 'image');
 
             if ($model->validate() and $model->save() and $model->upload()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect($model->url);
             }
         }
 

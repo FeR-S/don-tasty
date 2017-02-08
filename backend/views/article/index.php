@@ -25,6 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'body',
 //            'user_id',
             'category_id',
+            [
+                'attribute' => 'category_id',
+                'value' => function($model){
+                    return \common\models\Article::getStatuses()[$model->category_id];
+                }
+            ],
             // 'created_at',
             // 'updated_at',
             // 'source',

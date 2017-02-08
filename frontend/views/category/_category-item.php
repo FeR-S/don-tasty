@@ -9,12 +9,12 @@ use yii\widgets\ActiveForm;
 ?>
 
 <?php $articles_count = \common\models\Article::getArticlesCount($model->id);
-if($articles_count > 0) { ?>
+if ($articles_count > 0) { ?>
     <li>
-        <?php echo Html::a($model->title, ['article/category', 'id' => $model->id], [
-            'class' => 'label label-light '.$model->label_class
+        <?php echo Html::a($model->title, $model->url, [
+            'class' => 'label label-light ' . $model->label_class
         ]); ?>
-        <span class="label label-light label-default pull-right"><?php echo \common\models\Article::getArticlesCount($model->id) ;?></span>
+        <span class="label label-light label-default pull-right"><?php echo \common\models\Article::getArticlesCount($model->id); ?></span>
     </li>
 <?php } ?>
 

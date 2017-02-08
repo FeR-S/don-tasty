@@ -45,6 +45,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'articles/<category_slug:[\w_-]+>/<article_slug:[\w_-]+>' => 'article/view/',
+                'articles/<category_slug:[\w_-]+>' => 'article/category/',
+                'articles' => 'article/list',
+
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<param:\w+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

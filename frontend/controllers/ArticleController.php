@@ -64,18 +64,17 @@ class ArticleController extends Controller
     }
 
     /**
-     * Displays a single Article model.
-     * @param integer $id
-     * @return mixed
+     * @param $article_slug
+     * @return string
      */
-    public function actionView($id)
+    public function actionView($article_slug)
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Category::find(),
         ]);
 
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModelBySlug($article_slug),
             'categories' => $dataProvider
         ]);
     }
@@ -110,8 +109,7 @@ class ArticleController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public
-    function actionUpdate($id)
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
         if ($model->user_id == Yii::$app->user->identity->getId()) {
@@ -138,8 +136,7 @@ class ArticleController extends Controller
     /**
      * @return string
      */
-    public
-    function actionList()
+    public function actionList()
     {
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -156,14 +153,11 @@ class ArticleController extends Controller
     }
 
     /**
-     * Finds the Article model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Article the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return static
+     * @throws NotFoundHttpException
      */
-    protected
-    function findModel($id)
+    protected function findModel($id)
     {
         if (($model = Article::findOne($id)) !== null) {
             return $model;
@@ -173,13 +167,26 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param $id
+     * @param $slug
+     * @return array|null|\yii\db\ActiveRecord
+     * @throws NotFoundHttpException
+     */
+    protected function findModelBySlug($slug)
+    {
+        if (($model = Article::find()->where(['slug' => $slug])->one()) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    /**
+     * @param $category_slug
      * @return string
      */
-    public
-    function actionCategory($id)
+    public function actionCategory($category_slug)
     {
-        $model = Category::findOne($id);
+        $model = Category::find()->where(['slug' => $category_slug])->one();
 
         $dataProvider = new ActiveDataProvider([
             'query' => Category::find(),
@@ -187,7 +194,7 @@ class ArticleController extends Controller
 
         return $this->render('category_articles', [
             'model' => $model,
-            'articles' => self::getCategoryArticles($id),
+            'articles' => self::getCategoryArticles($model->id),
             'categories' => $dataProvider
         ]);
     }
@@ -195,8 +202,7 @@ class ArticleController extends Controller
     /**
      * @return bool
      */
-    public
-    function actionRemoveArticleImage()
+    public function actionRemoveArticleImage()
     {
         if (Yii::$app->request->isAjax) {
             $model_id = Yii::$app->request->post()['model_id'];
@@ -213,8 +219,7 @@ class ArticleController extends Controller
      * @param $category_id
      * @return ActiveDataProvider
      */
-    public
-    static function getCategoryArticles($category_id)
+    public static function getCategoryArticles($category_id)
     {
         $articles = Article::find()->where(['category_id' => $category_id]);
         return $dataProvider = new ActiveDataProvider([

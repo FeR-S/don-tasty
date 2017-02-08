@@ -1,10 +1,12 @@
 <?php
 
 namespace common\models;
+
 use yii\db\ActiveRecord;
 
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "categories".
@@ -103,6 +105,10 @@ class Category extends ActiveRecord
         return $categories;
     }
 
+    public function getUrl()
+    {
+        return '/articles/' . $this->slug;
+    }
 
     /**
      * @param bool $insert

@@ -25,12 +25,23 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'body',
 //            'user_id',
             'category_id',
+            [
+                'attribute' => 'category_id',
+                'value' => function($model){
+                    return $model->category->title;
+                }
+            ],
             // 'created_at',
             // 'updated_at',
             // 'source',
             // 'rating',
             // 'views',
-             'status',
+            [
+                'attribute' => 'status',
+                'value' => function($model){
+                    return \common\models\Article::getStatuses()[$model->status];
+                }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

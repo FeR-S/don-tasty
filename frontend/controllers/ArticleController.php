@@ -142,7 +142,7 @@ class ArticleController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, true);
 
         $categories = new ActiveDataProvider([
-            'query' => Category::find()->with('articles')->where(['article.status' => Article::STATUS_PUBLIC]),
+            'query' => Category::find()->joinWith('articles')->where(['articles.status' => Article::STATUS_PUBLIC]),
         ]);
 
         return $this->render('list', [

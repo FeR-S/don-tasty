@@ -183,7 +183,7 @@ class Article extends ActiveRecord
     public static function getArticles()
     {
         return $dataProvider = new ActiveDataProvider([
-            'query' => self::find(),
+            'query' => self::find()->where(['status' => Article::STATUS_PUBLIC]),
         ]);
     }
 

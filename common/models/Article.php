@@ -86,9 +86,9 @@ class Article extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'created_at', 'status', 'category_id', 'body', 'announcement', 'slug'], 'required'],
+            [['title', 'created_at', 'status', 'category_id', 'body', 'announcement'], 'required'],
             [['user_id', 'category_id', 'rating', 'views', 'status'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at', 'slug'], 'safe'],
             [['title', 'slug'], 'string', 'max' => 255],
             [['body'], 'string', 'max' => 2048],
             [['announcement'], 'string', 'max' => 1024],

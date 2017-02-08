@@ -1,3 +1,7 @@
+html {
+    background-color: #191919;
+}
+
 body {
     background-color: #F7F5F4 !important;
 }
@@ -417,6 +421,7 @@ img.pull-left {
 .blog-post .panel > img {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
+    width: 100%;
 }
 
 .blog-comments .panel,
@@ -549,4 +554,8 @@ img.pull-left {
 .categories .label-light.label-inverse:hover,
 .categories .label-light.label-inverse:focus {
     background-color: #6f79b1;
+}
+
+.navbar-toggle {
+    margin-top: 0;
 }

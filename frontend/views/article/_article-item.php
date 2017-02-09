@@ -13,7 +13,7 @@ if ($index % $modelIndex == $modelKey) { ?>
             <!--        <div>-->
             <!--            <span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>-->
             <!--        </div>-->
-            <img src="<?php echo $model->getImagePath(); ?>" data-holder-rendered="true">
+            <img src="<?php echo $model->getImageUrl(); ?>" data-holder-rendered="true">
             <div class="panel-body">
                 <div class="blog-post-meta">
                     <span class="label label-light <?php echo $model->category->label_class; ?>"><?php echo $model->category->title; ?></span>

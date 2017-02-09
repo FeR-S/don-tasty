@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'category_id',
             [
                 'attribute' => 'category_id',
-                'value' => function($model){
+                'value' => function ($model) {
                     return $model->category->title;
                 }
             ],
@@ -40,7 +40,15 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'rating',
             // 'views',
             // 'status',
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return \yii\helpers\Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $model->url,
+                            ['title' => Yii::t('yii', 'View'), 'data-pjax' => '0']);
+                    }
+                ],
+            ],
         ],
     ]); ?>
 </div>

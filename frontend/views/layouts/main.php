@@ -33,12 +33,12 @@ NavBar::begin([
     ],
 ]);
 $menuItems = [
-    ['label' => 'Главная', 'url' => ['/site/index']],
+    ['label' => 'Главная', 'url' => ['/']],
 //    ['label' => 'О проекте', 'url' => ['/site/about']],
 //    ['label' => 'Контакты', 'url' => ['/site/contact']],
 ];
 if (Yii::$app->user->isGuest) {
-    $menuItems[] = ['label' => 'Статьи', 'url' => ['/article/list']];
+    $menuItems[] = ['label' => 'Статьи', 'url' => ['/articles']];
 //    $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
     $menuItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
 } else {
@@ -214,7 +214,7 @@ NavBar::end();
                         <p class="simplenav">
                             <a href="/">Главная</a> |
                             <!--                            <a href="/site/contact">Контакты</a> |-->
-                            <a href="/article/list">Статьи</a>
+                            <a href="/articles">Статьи</a>
                         </p>
                     </div>
                 </div>

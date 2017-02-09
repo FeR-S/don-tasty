@@ -122,9 +122,9 @@ class Article extends ActiveRecord
     {
         $image_path = self::getImagePath() . $this->id . '.jpg';
         if (file_exists($image_path)) {
-            return Yii::getAlias('@public_site') . 'uploads/article_images/' . $this->id . '.jpg';
+            return Yii::getAlias('@public_site') . '/uploads/article_images/' . $this->id . '.jpg';
         } else {
-            return Yii::getAlias('@public_site') . 'uploads/article_images/default.png';
+            return Yii::getAlias('@public_site') . '/uploads/article_images/default.png';
         }
     }
 

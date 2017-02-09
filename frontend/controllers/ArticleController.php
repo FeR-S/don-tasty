@@ -216,7 +216,10 @@ class ArticleController extends Controller
      */
     public static function getCategoryArticles($category_id)
     {
-        $articles = Article::find()->where(['category_id' => $category_id]);
+        $articles = Article::find()->where([
+            'category_id' => $category_id,
+            'status' => Article::STATUS_PUBLIC
+        ]);
         return $dataProvider = new ActiveDataProvider([
             'query' => $articles,
         ]);

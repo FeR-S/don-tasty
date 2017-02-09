@@ -115,10 +115,8 @@ class ArticleController extends Controller
         if ($model->user_id == Yii::$app->user->identity->getId()) {
             if ($model->load(Yii::$app->request->post())) {
                 $model->image = UploadedFile::getInstance($model, 'image');
-                if ($model->validate() && $model->save()) {
-                    if ($model->upload()) {
-                        return $this->redirect($model->url);
-                    }
+                if ($model->validate() && $model->save() && $model->upload()) {
+                    return $this->redirect($model->url);
                 } else {
                     Yii::$app->getSession()->setFlash('danger', 'Возникла ошибка при изменении статьи. Пожалуйста, свяжитесь с администратором.');
                     return $this->redirect(['index']);

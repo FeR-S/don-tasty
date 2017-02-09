@@ -52,6 +52,14 @@ class Article extends ActiveRecord
     }
 
     /**
+     * @return bool|string
+     */
+    public static function getImagePath()
+    {
+        return Yii::getAlias('@frontend/web/uploads/article_images/');
+    }
+
+    /**
      * @return array
      */
     public static function getStatuses()
@@ -110,13 +118,13 @@ class Article extends ActiveRecord
     /**
      * @return string
      */
-    public function getImagePath()
+    public function getImageUrl()
     {
-        $image_path = '/article_images/' . $this->id . '.jpg';
-        if (file_exists(Yii::getAlias('@frontend/web/uploads/' . $image_path))) {
-            return Yii::getAlias('@upload') . '/article_images/' . $this->id . '.jpg';
+        $image_path = self::getImagePath() . $this->id . '.jpg';
+        if (file_exists($image_path)) {
+            return Yii::getAlias('@public_site') . 'uploads/article_images/' . $this->id . '.jpg';
         } else {
-            return Yii::getAlias('@upload') . '/article_images/default.png';
+            return Yii::getAlias('@public_site') . 'uploads/article_images/default.png';
         }
     }
 
@@ -145,11 +153,8 @@ class Article extends ActiveRecord
      */
     public function upload()
     {
-        if ($this->validate()) {
-            if ($this->image) {
-                $this->image->saveAs('uploads/article_images/' . $this->id . '.' . $this->image->extension);
-            }
-            return true;
+        if ($this->validate() and $this->image) {
+            return $this->image->saveAs(Yii::getAlias('@frontend/web/uploads/article_images/') . $this->id . '.' . $this->image->extension);
         } else {
             return false;
         }

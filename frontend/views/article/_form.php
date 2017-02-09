@@ -65,7 +65,7 @@ use dosamigos\tinymce\TinyMce;
             'showUpload' => false,
             'mainClass' => 'input-group-sm',
             'showClose' => false,
-            'initialPreview' => $model->getImagePath(),
+            'initialPreview' => $model->getImageUrl(),
             'initialPreviewAsData' => true,
             'initialCaption' => $model->id . '.jpg',
             'overwriteInitial' => true,

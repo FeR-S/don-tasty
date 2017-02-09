@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <!--                        <p>--><?php //echo $model->user->username; ?><!--</p>-->
                     </div>
                 </div>
-                <img class="post-view-image" src="<?php echo $model->getImagePath(); ?>" data-holder-rendered="true">
+                <img class="post-view-image" src="<?php echo $model->getImageUrl(); ?>" data-holder-rendered="true">
             </div>
         </section>
     </div>

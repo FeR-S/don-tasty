@@ -237,7 +237,10 @@ class Article extends ActiveRecord
      */
     public static function getArticlesCount($category_id)
     {
-        return Article::find()->where(['category_id' => $category_id])->count();
+        return Article::find()->where([
+            'category_id' => $category_id,
+            'status' => Article::STATUS_PUBLIC
+        ])->count();
     }
 
     /**

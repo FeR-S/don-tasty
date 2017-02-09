@@ -110,4 +110,17 @@ class ArticleController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    /**
+     * @return bool|object
+     */
+    public function actionRemoveImage()
+    {
+        if (Yii::$app->request->isAjax) {
+            $article_id = Yii::$app->request->post()['article_id'];
+            return Article::removeImageStatic($article_id);
+        }
+
+        return false;
+    }
 }

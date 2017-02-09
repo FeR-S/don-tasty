@@ -9,6 +9,27 @@ use kartik\widgets\FileInput;
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
 /* @var $form yii\widgets\ActiveForm */
+
+$this->registerJs(<<<JS
+     
+$(document).on('click', '.article-image-remove-button', function(){
+        var item = $(this).find('[model_id]'),
+            article_id = item.attr('model_id');
+       
+            $.ajax({
+                type: 'post',
+                url: '/article/remove-image',
+                data: {
+                    article_id: article_id,
+                }
+            }).success(function(result){
+                alert('Изображение '+ result +' удалено!');
+            });
+});
+
+JS
+    , \yii\web\View::POS_READY);
+
 ?>
 
 <div class="article-form">

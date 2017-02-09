@@ -198,16 +198,13 @@ class ArticleController extends Controller
     }
 
     /**
-     * @return bool
+     * @return bool|object
      */
-    public function actionRemoveArticleImage()
+    public function actionRemoveImage()
     {
         if (Yii::$app->request->isAjax) {
-            $model_id = Yii::$app->request->post()['model_id'];
-            $image_path = '/article_images/' . $model_id . '.jpg';
-            if (unlink(Yii::getAlias('@frontend/web/uploads/' . $image_path))) {
-                return $model_id . '.jpg';
-            }
+            $article_id = Yii::$app->request->post()['article_id'];
+            return Article::removeImageStatic($article_id);
         }
 
         return false;

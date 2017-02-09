@@ -363,6 +363,10 @@ img.pull-left {
     padding-bottom: 16px;
 }
 
+.blog-current-post .blog-post-title {
+    margin-top: 30px;
+}
+
 .blog-current-post .blog-post-title,
 .blog-current-post .blog-post-meta,
 .blog-current-post .blog-post-content,

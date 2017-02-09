@@ -117,7 +117,7 @@ class ArticleController extends Controller
                 $model->image = UploadedFile::getInstance($model, 'image');
                 if ($model->validate() && $model->save()) {
                     if ($model->upload()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
+                        return $this->redirect($model->url);
                     }
                 } else {
                     Yii::$app->getSession()->setFlash('danger', 'Возникла ошибка при изменении статьи. Пожалуйста, свяжитесь с администратором.');

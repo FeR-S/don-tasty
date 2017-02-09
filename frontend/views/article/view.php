@@ -18,23 +18,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
         <section class="blog-post">
             <div class="panel panel-default ">
-                <div class="panel-body">
+                <div class="panel-body blog-current-post">
                     <div class="blog-post-meta">
                         <span class="label label-light <?php echo $model->category->label_class; ?>"><?php echo $model->category->title; ?></span>
                         <p class="blog-post-date pull-right"><?php echo $model->created_at; ?></p>
                     </div>
+                    <h2 class="blog-post-title"><?php echo $model->title; ?><br><small>Что говорить и как вести себя в этой ситуации?</small></h2>
+                    <div class="blog-post-tezis">
+                        <?php echo $model->announcement; ?>
+                    </div>
                     <div class="blog-post-content">
-                        <h2 class="blog-post-title"><?php echo $model->title; ?></h2>
-<!--                        <blockquote>--><?php //echo $model->announcement; ?><!--</blockquote>-->
-
-                        <div class="bs-callout bs-callout-info tezis">
-                            <h4>Тезис:</h4>
-                            <div class="text">
-                                <?php echo $model->announcement; ?>
-                            </div>
-                        </div>
-
-                        <p><?php echo $model->body; ?></p>
+                        <?php echo $model->body; ?>
                         <p><b>Источник: </b><?php echo $model->source; ?></p>
                         <!--                        <p>--><?php //echo $model->user->username; ?><!--</p>-->
                     </div>

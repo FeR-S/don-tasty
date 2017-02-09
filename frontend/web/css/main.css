@@ -356,6 +356,39 @@ img.pull-left {
     /*margin-top: 0;*/
 }
 
+.blog-current-post .blog-post-title,
+.blog-current-post .blog-post-meta,
+.blog-current-post .blog-post-content {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.blog-current-post .blog-post-title,
+.blog-current-post .blog-post-meta,
+.blog-current-post .blog-post-content,
+.blog-current-post .blog-post-tezis {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.blog-current-post .blog-post-meta {
+    color: #999;
+    display: block;
+    border-bottom: 1px solid #EDEDED;
+}
+
+.blog-current-post .blog-post-tezis {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    background: #5f2222;
+    color: #fff;
+}
+
+.blog-post-tezis p {
+    margin: 10px auto;
+}
+
+
 /* Common styles for all types */
 .bs-callout {
     padding: 20px;

@@ -187,7 +187,7 @@ class ArticleController extends Controller
         $model = Category::find()->where(['slug' => $category_slug])->one();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => Category::find(),
+            'query' => Category::find()->joinWith('articles')->where(['articles.status' => Article::STATUS_PUBLIC])
         ]);
 
         return $this->render('category_articles', [

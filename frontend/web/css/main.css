@@ -324,7 +324,7 @@ img.pull-left {
 
 .blog-comments-title,
 .blog-post-title {
-    /*margin: 5px 0;*/
+    margin: 5px 0;
     font-size: 24px;
     font-weight: 400;
     color: #333;

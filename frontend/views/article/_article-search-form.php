@@ -2,8 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\Pjax;
-use kartik\form\ActiveField;
+use yii\widgets\PjaxAsset;
 use kartik\form\ActiveForm;
+
+PjaxAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ArticleSearch */
@@ -12,21 +14,18 @@ use kartik\form\ActiveForm;
 Pjax::begin(['enablePushState' => false, 'id' => 'articles-search-pjax']);
 
 $form = ActiveForm::begin([
+    'method' => 'post',
     'id' => 'article_search_form',
-//    'type' => ActiveForm::TYPE_INLINE,
+    'fieldConfig' => ['autoPlaceholder' => true],
+    'enableClientValidation' => true,
+    'enableAjaxValidation' => false,
     'fullSpan' => true,
     'action' => '/article/search',
-    'options' => [
-        'data-pjax' => true
-    ],
-//    'enableAjaxValidation' => true,
-//    'validationUrl' => '/article/search',
-]); ?>
+], ['options' => ['data-pjax' => false]]); ?>
 
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
         <?php
-
 
         $searchResult = isset($dataProvider) ? \yii\widgets\ListView::widget([
             'dataProvider' => $dataProvider,
@@ -46,9 +45,8 @@ $form = ActiveForm::begin([
             ],
         ]) : '';
 
-
         echo $form->field($model, 'title', [
-            'template' => '<div id="articles-search-form-result">{input}<div class="search-result">'.$searchResult.'</div></div>',
+            'template' => '<div id="articles-search-form-result">{input}<div class="search-result">' . $searchResult . '</div></div>',
             'addon' => [
                 'append' => [
                     'content' => Html::submitButton('Поиск', ['class' => 'btn btn-primary']),

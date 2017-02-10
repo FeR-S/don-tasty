@@ -13,6 +13,9 @@ use yii\filters\AccessControl;
 use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
 use common\models\Category;
+use yii\web\Response;
+use kartik\form\ActiveForm;
+
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -223,17 +226,15 @@ class ArticleController extends Controller
     {
         $searchModel = new ArticleSearch();
 
-        if($searchModel->load(Yii::$app->request->post()) and $searchModel->validate()){
-            $dataProvider = $searchModel->searchInstant(Yii::$app->request->post());
+        if ($searchModel->load(Yii::$app->request->post()) and $searchModel->validate()) {
             return $this->renderAjax('_article-search-form', [
                 'model' => $searchModel,
                 'dataProvider' => $dataProvider
             ]);
+        } else {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($searchModel);
         }
-
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        return ActiveForm::validate($searchModel);
-
     }
 
     /**

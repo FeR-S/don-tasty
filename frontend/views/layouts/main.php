@@ -90,23 +90,19 @@ NavBar::end();
                 лишнего.
             </p>
 
-            <?php
+            <br>
 
-//            $model = new \common\models\ArticleSearch();
-//            $form = \kartik\form\ActiveForm::begin([
-//                'id' => 'article_search_form',
-//                'action' => '/article/search'
-//            ]);
-//
-//            echo $form->field($model, 'title')->textInput(['maxlength' => true]);
-//
-//            echo Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
-//
-//            \kartik\form\ActiveForm::end();
+            <!--  SEARCH FORM  -->
+                <?php
 
+                $model = new \common\models\ArticleSearch();
+                $model->scenario = \common\models\ArticleSearch::SCENARIO_PUBLIC_SEARCH;
 
+                echo $this->render('/article/_article-search-form', [
+                        'model' => new \common\models\ArticleSearch()
+                ]); ?>
+            <!--  END SEARCH FORM  -->
 
-            ?>
         </div>
     </div>
 

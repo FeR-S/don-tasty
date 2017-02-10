@@ -93,7 +93,10 @@ class ArticleController extends Controller
             $model->status = Article::STATUS_MODERATION;
             $model->image = UploadedFile::getInstance($model, 'image');
 
-            if ($model->validate() and $model->save() and $model->upload()) {
+            if ($model->validate() && $model->save()) {
+                if (!is_null($model->image)) {
+                    $model->upload();
+                }
                 return $this->redirect($model->url);
             }
         }
@@ -115,7 +118,10 @@ class ArticleController extends Controller
         if ($model->user_id == Yii::$app->user->identity->getId()) {
             if ($model->load(Yii::$app->request->post())) {
                 $model->image = UploadedFile::getInstance($model, 'image');
-                if ($model->validate() && $model->save() && $model->upload()) {
+                if ($model->validate() && $model->save()) {
+                    if (!is_null($model->image)) {
+                        $model->upload();
+                    }
                     return $this->redirect($model->url);
                 } else {
                     Yii::$app->getSession()->setFlash('danger', 'Возникла ошибка при изменении статьи. Пожалуйста, свяжитесь с администратором.');
@@ -208,6 +214,26 @@ class ArticleController extends Controller
         }
 
         return false;
+    }
+
+    /**
+     *
+     */
+    public function actionSearch()
+    {
+        $searchModel = new ArticleSearch();
+
+        if($searchModel->load(Yii::$app->request->post()) and $searchModel->validate()){
+            $dataProvider = $searchModel->searchInstant(Yii::$app->request->post());
+            return $this->renderAjax('_article-search-form', [
+                'model' => $searchModel,
+                'dataProvider' => $dataProvider
+            ]);
+        }
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ActiveForm::validate($searchModel);
+
     }
 
     /**

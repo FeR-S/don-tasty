@@ -30,6 +30,7 @@ class Article extends ActiveRecord
     const STATUS_PUBLIC = 2;
     const STATUS_DELETED = 0;
 
+
     /**
      * @return array
      */
@@ -210,7 +211,6 @@ class Article extends ActiveRecord
         ]);
     }
 
-
     /**
      *
      */
@@ -247,7 +247,6 @@ class Article extends ActiveRecord
         }
         return false;
     }
-
 
     /**
      * @param $category_id

@@ -12,12 +12,16 @@ use yii\data\ActiveDataProvider;
  */
 class ArticleSearch extends Article
 {
+
+    const SCENARIO_PUBLIC_SEARCH = 'public_search';
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
+            [['title'], 'required', 'on' => self::SCENARIO_PUBLIC_SEARCH],
             [['id', 'user_id', 'category_id', 'rating', 'views', 'status'], 'integer'],
             [['title', 'body', 'created_at', 'updated_at', 'source', 'slug'], 'safe'],
         ];
@@ -33,8 +37,9 @@ class ArticleSearch extends Article
      */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_PUBLIC_SEARCH] = ['title'];
+        return $scenarios;
     }
 
 
@@ -83,4 +88,34 @@ class ArticleSearch extends Article
 
         return $dataProvider;
     }
+
+    public function searchInstant($params)
+    {
+        $query = Article::find()
+//            ->select(['articles.id', 'articles.title', 'articles.status', 'articles.created_at', 'categories.title'])
+            ->joinWith('category')
+            ->where([
+                'articles.status' => Article::STATUS_PUBLIC
+            ])->groupBy(['articles.id']);
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+        $this->scenario = self::SCENARIO_PUBLIC_SEARCH;
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            $query->where('0=1');
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere(['like', 'articles.title', $this->title]);
+
+        return $dataProvider;
+    }
+
 }

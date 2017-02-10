@@ -89,6 +89,24 @@ NavBar::end();
                 В статьях данного сервиса представлены краткие ответы на возникающие в таких ситуациях вопросы - ничего
                 лишнего.
             </p>
+
+            <?php
+
+            $model = new \common\models\ArticleSearch();
+            $form = \kartik\form\ActiveForm::begin([
+                'id' => 'article_search_form',
+                'action' => '/article/search'
+            ]);
+
+            echo $form->field($model, 'title')->textInput(['maxlength' => true]);
+
+            echo Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+
+            \kartik\form\ActiveForm::end();
+
+
+
+            ?>
         </div>
     </div>
 

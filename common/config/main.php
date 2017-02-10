@@ -7,7 +7,4 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
     ],
-    'aliases' => [
-        '@public_site' => 'http://judlit.ru/'
-    ],
 ];

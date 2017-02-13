@@ -225,15 +225,13 @@ class ArticleController extends Controller
     public function actionSearch()
     {
         $searchModel = new ArticleSearch();
+        $searchModel->scenario = ArticleSearch::SCENARIO_PUBLIC_SEARCH;
 
-        if ($searchModel->load(Yii::$app->request->post()) and $searchModel->validate()) {
+        if ($searchModel->load(Yii::$app->request->post())) {
             return $this->renderAjax('_article-search-form', [
                 'model' => $searchModel,
-                'dataProvider' => $dataProvider
+                'dataProvider' => $searchModel->searchInstant()
             ]);
-        } else {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($searchModel);
         }
     }
 

@@ -5,7 +5,7 @@ use yii\widgets\Pjax;
 use yii\widgets\PjaxAsset;
 use kartik\form\ActiveForm;
 
-PjaxAsset::register($this);
+//PjaxAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ArticleSearch */
@@ -14,14 +14,16 @@ PjaxAsset::register($this);
 Pjax::begin(['enablePushState' => false, 'id' => 'articles-search-pjax']);
 
 $form = ActiveForm::begin([
-    'method' => 'post',
-    'id' => 'article_search_form',
-    'fieldConfig' => ['autoPlaceholder' => true],
-    'enableClientValidation' => true,
-    'enableAjaxValidation' => false,
-    'fullSpan' => true,
-    'action' => '/article/search',
-], ['options' => ['data-pjax' => false]]); ?>
+//    'method' => 'post',
+        'id' => 'article_search_form',
+        'options' => ['data-pjax' => true],
+//    'fieldConfig' => ['autoPlaceholder' => true],
+//    'enableClientValidation' => true,
+//    'enableAjaxValidation' => false,
+        'fullSpan' => true,
+        'action' => '/article/search',
+    ]
+); ?>
 
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2">

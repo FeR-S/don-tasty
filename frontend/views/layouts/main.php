@@ -93,14 +93,13 @@ NavBar::end();
             <br>
 
             <!--  SEARCH FORM  -->
-                <?php
-
-                $model = new \common\models\ArticleSearch();
-                $model->scenario = \common\models\ArticleSearch::SCENARIO_PUBLIC_SEARCH;
-
-                echo $this->render('/article/_article-search-form', [
-                        'model' => new \common\models\ArticleSearch()
-                ]); ?>
+            <?php
+            $model = new \common\models\ArticleSearch();
+            $model->scenario = \common\models\ArticleSearch::SCENARIO_PUBLIC_SEARCH;
+            echo $this->render('/article/_article-search-form', [
+                'model' => $model
+            ]);
+            ?>
             <!--  END SEARCH FORM  -->
 
         </div>

@@ -15,6 +15,7 @@ use yii\helpers\Url;
  * @property string $title
  * @property integer $parent_category_id
  * @property integer $label_class
+ * @property integer $description
  */
 class Category extends ActiveRecord
 {
@@ -81,6 +82,7 @@ class Category extends ActiveRecord
             [['title', 'slug'], 'required'],
             [['parent_category_id'], 'integer'],
             [['label_class'], 'safe'],
+            [['description'], 'string'],
             ['parent_category_id', 'default', 'value' => 0],
             [['title', 'slug'], 'string', 'max' => 255],
         ];

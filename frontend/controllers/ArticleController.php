@@ -76,6 +76,14 @@ class ArticleController extends Controller
             'query' => Category::find(),
         ]);
 
+        $model = $this->findModelBySlug($article_slug);
+
+        $description = ($model->description) ? $model->description : ($model->announcement ? mb_substr($model->announcement, 0, 200) : mb_substr($model->body, 0, 200));
+        Yii::$app->view->registerMetaTag([
+            'name' => 'description',
+            'content' => strip_tags($description),
+        ], "blog_view_description");
+
         return $this->render('view', [
             'model' => $this->findModelBySlug($article_slug),
             'categories' => $dataProvider

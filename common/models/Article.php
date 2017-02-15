@@ -22,6 +22,7 @@ use yii\helpers\Url;
  * @property integer $views
  * @property integer $status
  * @property integer $description
+ * @property integer $sub_title
  */
 class Article extends ActiveRecord
 {
@@ -98,7 +99,7 @@ class Article extends ActiveRecord
         return [
             [['title', 'created_at', 'status', 'category_id', 'body', 'announcement'], 'required'],
             [['user_id', 'category_id', 'rating', 'views', 'status'], 'integer'],
-            [['created_at', 'updated_at', 'slug'], 'safe'],
+            [['created_at', 'updated_at', 'slug', 'sub_title'], 'safe'],
             [['title', 'slug'], 'string', 'max' => 255],
             [['description'], 'string'],
             [['body'], 'string', 'max' => 2048],

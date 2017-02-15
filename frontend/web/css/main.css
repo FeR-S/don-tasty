@@ -631,3 +631,16 @@ img.pull-left {
     display: block;
     padding: 12px 20px;
 }
+
+.blog-post-content.source {
+    font-size: 12px;
+    color: #909090;
+}
+
+.blog-post-content.source > span {
+    color: #1c1c1c;
+}
+
+.article-comment-empty-message {
+    padding: 0 15px 15px;
+}

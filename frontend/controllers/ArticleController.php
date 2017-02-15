@@ -2,9 +2,12 @@
 
 namespace frontend\controllers;
 
+use common\models\ArticleComments;
+use common\models\ArticleCommentsSearch;
 use Yii;
 use common\models\Article;
 use common\models\ArticleSearch;
+use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -72,11 +75,21 @@ class ArticleController extends Controller
      */
     public function actionView($article_slug)
     {
+        $model = $this->findModelBySlug($article_slug);
+        $article_comments_model = new ArticleCommentsSearch();
+        $article_comments = new ActiveDataProvider([
+            'query' => ArticleComments::find()->where([
+                'status' => ArticleComments::STATUS_PUBLIC
+            ]),
+        ]);
+
+        if($article_comments_model->load(Yii::$app->request->post()) && $article_comments_model->validate()){
+            var_dump(123);die;
+        }
+
         $dataProvider = new ActiveDataProvider([
             'query' => Category::find(),
         ]);
-
-        $model = $this->findModelBySlug($article_slug);
 
         $description = ($model->description) ? $model->description : ($model->announcement ? mb_substr($model->announcement, 0, 200) : mb_substr($model->body, 0, 200));
         Yii::$app->view->registerMetaTag([
@@ -85,8 +98,10 @@ class ArticleController extends Controller
         ], "blog_view_description");
 
         return $this->render('view', [
-            'model' => $this->findModelBySlug($article_slug),
-            'categories' => $dataProvider
+            'model' => $model,
+            'categories' => $dataProvider,
+            'article_comments_model' => $article_comments_model,
+            'article_comments' => $article_comments,
         ]);
     }
 
@@ -160,6 +175,11 @@ class ArticleController extends Controller
             'query' => Category::find()->joinWith('articles')->where(['articles.status' => Article::STATUS_PUBLIC]),
         ]);
 
+        Yii::$app->view->registerMetaTag([
+            'name' => 'description',
+            'content' => Html::encode('Список статей - ответы на вопросы неприятных или непонятных с юридической точки зрения ситуаций, с которыми мы, порой, сталкиваемся в жизни.'),
+        ], "blog_category_description");
+
         return $this->render('list', [
             'searchModel' => $searchModel,
             'articles' => $dataProvider,
@@ -201,17 +221,26 @@ class ArticleController extends Controller
      */
     public function actionCategory($category_slug)
     {
-        $model = Category::find()->where(['slug' => $category_slug])->one();
+        if ($model = Category::find()->where(['slug' => $category_slug])->one()) {
+            $dataProvider = new ActiveDataProvider([
+                'query' => Category::find()->joinWith('articles')->where(['articles.status' => Article::STATUS_PUBLIC])
+            ]);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => Category::find()->joinWith('articles')->where(['articles.status' => Article::STATUS_PUBLIC])
-        ]);
+            $description = $model->description ? $model->description : $model->title;
 
-        return $this->render('category_articles', [
-            'model' => $model,
-            'articles' => self::getCategoryArticles($model->id),
-            'categories' => $dataProvider
-        ]);
+            Yii::$app->view->registerMetaTag([
+                'name' => 'description',
+                'content' => strip_tags($description),
+            ], "blog_category_description");
+
+            return $this->render('category_articles', [
+                'model' => $model,
+                'articles' => self::getCategoryArticles($model->id),
+                'categories' => $dataProvider
+            ]);
+        } else {
+            $this->redirect('/articles');
+        }
     }
 
     /**

@@ -23,20 +23,30 @@ $this->params['breadcrumbs'][] = $this->title;
                         <span class="label label-light <?php echo $model->category->label_class; ?>"><?php echo $model->category->title; ?></span>
                         <p class="blog-post-date pull-right"><?php echo $model->created_at; ?></p>
                     </div>
-                    <h2 class="blog-post-title"><?php echo $model->title; ?><br><small>Что говорить и как вести себя в этой ситуации?</small></h2>
+                    <h2 class="blog-post-title"><?php echo $model->title; ?>
+                        <?php if (!empty($model->sub_title)) echo '<br><small>' . $model->sub_title . '</small>'; ?>
+                    </h2>
                     <div class="blog-post-tezis">
                         <?php echo $model->announcement; ?>
                     </div>
                     <div class="blog-post-content">
                         <?php echo $model->body; ?>
-                        <p><b>Источник: </b><?php echo $model->source; ?></p>
                         <!--                        <p>--><?php //echo $model->user->username; ?><!--</p>-->
                     </div>
                 </div>
                 <img class="post-view-image" src="<?php echo $model->getImageUrl(); ?>" data-holder-rendered="true">
-            </div>
+
+                <?php if (!empty($model->source)): ?>
+                    <div class="panel-body blog-current-post">
+                        <div class="blog-post-content source">
+                            Для написания данной статьи были использованы следующие материалы: <br>
+                            <span><?php echo strip_tags($model->source, '<a>'); ?></span>
+                        </div>
+                    </div>
+                <?php endif; ?>
         </section>
     </div>
+
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="sidebar-module">
             <div class="panel panel-default">
@@ -56,6 +66,54 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12">
+        <section class="blog-comments">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>Опыт наших читателей</h4>
+                    <!--                    <div class="blog-post-content">-->
+                    <?php
+
+                    \yii\widgets\Pjax::begin(['enablePushState' => false, 'id' => 'articles-search-pjax']);
+
+                    echo ListView::widget([
+                        'dataProvider' => $article_comments,
+                        'summary' => false,
+                        'options' => [
+                            'class' => 'row'
+                        ],
+                        'itemOptions' => [
+                            'class' => 'col-xs-12',
+                        ],
+                        'itemView' => '/article_comments/_article-comment-item',
+                        'emptyText' => 'Ничего не найдено...',
+                        'emptyTextOptions' => [
+                            'class' => 'col-xs-12 article-comment-empty-message'
+                        ],
+                    ]); ?>
+                    <!--                    </div>-->
+                    <!--                    <div class="blog-post-content">-->
+
+                    <p>Поделитель своим опытом в данной ситуации.</p>
+                    <?php
+
+                    $form = \kartik\form\ActiveForm::begin(['id' => 'article-comment-form', 'options' => ['data-pjax' => true]]);
+                    echo $form->field($article_comments_model, 'body', [])->textarea(['maxlength' => true])->label(false);
+                    echo Html::submitButton('Опубликовать', ['class' => 'btn btn-success']);
+
+                    \kartik\form\ActiveForm::end();
+                    \yii\widgets\Pjax::end();
+
+                    ?>
+                    <!--                    </div>-->
+                </div>
+            </div>
+        </section>
     </div>
 </div>
 

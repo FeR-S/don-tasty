@@ -42,7 +42,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return array
      */
-    public function getSpecializations() {
+    public static function getSpecializations() {
         return [
             self::SPECIALIZATION_GP => 'Гражданско-правовая',
             self::SPECIALIZATION_UP => 'Уголовно-правовая'
@@ -290,6 +290,7 @@ class User extends ActiveRecord implements IdentityInterface
         if ($this->isNewRecord) {
             $this->created_at = date("Y-m-d H:i:s");
             $this->status = self::STATUS_MODERATION;
+            $this->role = self::ROLE_LAWYER;
         } else {
             $this->updated_at = date("Y-m-d H:i:s");
         }

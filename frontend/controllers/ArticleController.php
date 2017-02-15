@@ -84,7 +84,7 @@ class ArticleController extends Controller
             ]),
         ]);
 
-        if ($article_comments_model->load(Yii::$app->request->post()) and $article_comments_model->safeNewComment($model)) {
+        if ($article_comments_model->load(Yii::$app->request->post()) and $article_comments_model->safeNewComment($model->id)) {
 
 
 //            $article_comments_model->validate();

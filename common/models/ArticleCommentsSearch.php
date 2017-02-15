@@ -75,7 +75,7 @@ class ArticleCommentsSearch extends ArticleComments
     }
 
 
-    public function safeNewComment($article_model)
+    public function safeNewComment($article_id)
     {
         if($this->validate()){
             $model = new ArticleComments();
@@ -83,9 +83,9 @@ class ArticleCommentsSearch extends ArticleComments
             if(!Yii::$app->user->isGuest) {
                 $model->user_id = Yii::$app->user->identity->getId();
             }
-            $model->article_id = $article_model->id;
+            $model->article_id = $article_id;
 
-            var_dump($this->getAttributes());die;
+            var_dump($model->getAttributes());die;
         };
 
         return false;

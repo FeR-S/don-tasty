@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\ArticleComments;
+use yii\helpers\Html;
 
 /**
  * ArticleCommentsSearch represents the model behind the search form about `common\models\ArticleComments`.
@@ -20,7 +21,6 @@ class ArticleCommentsSearch extends ArticleComments
         return [
             [['id', 'user_id', 'article_id', 'status'], 'integer'],
             [['body'], 'required', 'message' => 'Для публикации Вашего комментария, заполните это поле.'],
-
             [['created_at', 'updated_at', 'body'], 'safe'],
         ];
     }
@@ -72,5 +72,22 @@ class ArticleCommentsSearch extends ArticleComments
         $query->andFilterWhere(['like', 'body', $this->body]);
 
         return $dataProvider;
+    }
+
+
+    public function safeNewComment($article_model)
+    {
+        if($this->validate()){
+            $model = new ArticleComments();
+            $model->body = Html::encode(strip_tags($this->body));
+            if(!Yii::$app->user->isGuest) {
+                $model->user_id = Yii::$app->user->identity->getId();
+            }
+            $model->article_id = $article_model->id;
+
+            var_dump($this->getAttributes());die;
+        };
+
+        return false;
     }
 }

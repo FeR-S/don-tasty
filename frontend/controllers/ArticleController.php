@@ -77,14 +77,18 @@ class ArticleController extends Controller
     {
         $model = $this->findModelBySlug($article_slug);
         $article_comments_model = new ArticleCommentsSearch();
+
         $article_comments = new ActiveDataProvider([
             'query' => ArticleComments::find()->where([
                 'status' => ArticleComments::STATUS_PUBLIC
             ]),
         ]);
 
-        if($article_comments_model->load(Yii::$app->request->post()) && $article_comments_model->validate()){
-            var_dump(123);die;
+        if ($article_comments_model->load(Yii::$app->request->post()) and $article_comments_model->safeNewComment($model)) {
+
+
+//            $article_comments_model->validate();
+//            var_dump($article_comments_model->getAttributes());die;
         }
 
         $dataProvider = new ActiveDataProvider([

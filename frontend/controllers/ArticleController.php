@@ -76,20 +76,20 @@ class ArticleController extends Controller
     public function actionView($article_slug)
     {
         $model = $this->findModelBySlug($article_slug);
-        $article_comments_model = new ArticleCommentsSearch();
+//        $article_comments_model = new ArticleCommentsSearch();
 
-        $article_comments = new ActiveDataProvider([
-            'query' => ArticleComments::find()->where([
-                'status' => ArticleComments::STATUS_PUBLIC
-            ]),
-        ]);
+//        $article_comments = new ActiveDataProvider([
+//            'query' => ArticleComments::find()->where([
+//                'status' => ArticleComments::STATUS_PUBLIC
+//            ]),
+//        ]);
 
-        if ($article_comments_model->load(Yii::$app->request->post()) and $article_comments_model->safeNewComment($model->id)) {
+//        if ($article_comments_model->load(Yii::$app->request->post()) and $article_comments_model->safeNewComment($model->id)) {
 
 
 //            $article_comments_model->validate();
 //            var_dump($article_comments_model->getAttributes());die;
-        }
+//        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => Category::find(),
@@ -104,8 +104,8 @@ class ArticleController extends Controller
         return $this->render('view', [
             'model' => $model,
             'categories' => $dataProvider,
-            'article_comments_model' => $article_comments_model,
-            'article_comments' => $article_comments,
+//            'article_comments_model' => $article_comments_model,
+//            'article_comments' => $article_comments,
         ]);
     }
 

@@ -77,39 +77,46 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-body">
                     <h4>Опыт наших читателей</h4>
                     <!--                    <div class="blog-post-content">-->
-                    <?php
-
-                    \yii\widgets\Pjax::begin(['enablePushState' => false, 'id' => 'articles-search-pjax']);
-
-                    echo ListView::widget([
-                        'dataProvider' => $article_comments,
-                        'summary' => false,
-                        'options' => [
-                            'class' => 'row'
-                        ],
-                        'itemOptions' => [
-                            'class' => 'col-xs-12',
-                        ],
-                        'itemView' => '/article_comments/_article-comment-item',
-                        'emptyText' => 'Ничего не найдено...',
-                        'emptyTextOptions' => [
-                            'class' => 'col-xs-12 article-comment-empty-message'
-                        ],
-                    ]); ?>
+                    <div id="articles-comment-<?php echo $model->id; ?>"></div>
+                    <script type="text/javascript">
+                        window.onload = function () {
+                            VK.init({apiId: 5877934, onlyWidgets: true});
+                            VK.Widgets.Comments("articles-comment-<?php echo $model->id; ?>", {limit: 10, width: "665", attach: "*"});
+                        }
+                    </script>
+<!--                    --><?php
+//
+//                    \yii\widgets\Pjax::begin(['enablePushState' => false, 'id' => 'articles-search-pjax']);
+//
+//                    echo ListView::widget([
+//                        'dataProvider' => $article_comments,
+//                        'summary' => false,
+//                        'options' => [
+//                            'class' => 'row'
+//                        ],
+//                        'itemOptions' => [
+//                            'class' => 'col-xs-12',
+//                        ],
+//                        'itemView' => '/article_comments/_article-comment-item',
+//                        'emptyText' => 'Ничего не найдено...',
+//                        'emptyTextOptions' => [
+//                            'class' => 'col-xs-12 article-comment-empty-message'
+//                        ],
+//                    ]); ?>
                     <!--                    </div>-->
                     <!--                    <div class="blog-post-content">-->
 
                     <p>Поделитель своим опытом в данной ситуации.</p>
-                    <?php
-
-                    $form = \kartik\form\ActiveForm::begin(['id' => 'article-comment-form', 'options' => ['data-pjax' => true]]);
-                    echo $form->field($article_comments_model, 'body', [])->textarea(['maxlength' => true])->label(false);
-                    echo Html::submitButton('Опубликовать', ['class' => 'btn btn-success']);
-
-                    \kartik\form\ActiveForm::end();
-                    \yii\widgets\Pjax::end();
-
-                    ?>
+<!--                    --><?php
+//
+//                    $form = \kartik\form\ActiveForm::begin(['id' => 'article-comment-form', 'options' => ['data-pjax' => true]]);
+//                    echo $form->field($article_comments_model, 'body', [])->textarea(['maxlength' => true])->label(false);
+//                    echo Html::submitButton('Опубликовать', ['class' => 'btn btn-success']);
+//
+//                    \kartik\form\ActiveForm::end();
+//                    \yii\widgets\Pjax::end();
+//
+//                    ?>
                     <!--                    </div>-->
                 </div>
             </div>

@@ -18,10 +18,10 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="yandex-verification" content="e9fed1796d9b482a" />
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <meta name="yandex-verification" content="e9fed1796d9b482a" />
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?139"></script>
 </head>
 <body class="home">

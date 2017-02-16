@@ -46,7 +46,13 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'source',
             // 'rating',
             // 'views',
-            // 'status',
+            'status',
+            [
+                'attribute' => 'status',
+                'value' => function ($model) {
+                    return \common\models\Article::getStatuses()[$model->status];
+                }
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
 //                'buttons' => [

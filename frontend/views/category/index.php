@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
+            'slug',
             'label_class',
             'parent_category_id',
 

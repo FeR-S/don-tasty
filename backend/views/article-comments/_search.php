@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\ArticleSearch */
+/* @var $model common\models\ArticleCommentsSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="article-search">
+<div class="article-comments-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,23 +17,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'title') ?>
-
-    <?= $form->field($model, 'body') ?>
-
     <?= $form->field($model, 'user_id') ?>
 
-    <?= $form->field($model, 'category_id') ?>
+    <?= $form->field($model, 'article_id') ?>
 
-    <?php // echo $form->field($model, 'created_at') ?>
+    <?= $form->field($model, 'created_at') ?>
 
-    <?php // echo $form->field($model, 'updated_at') ?>
+    <?= $form->field($model, 'updated_at') ?>
 
-    <?php // echo $form->field($model, 'source') ?>
-
-    <?php // echo $form->field($model, 'rating') ?>
-
-    <?php // echo $form->field($model, 'views') ?>
+    <?php // echo $form->field($model, 'body') ?>
 
     <?php // echo $form->field($model, 'status') ?>
 

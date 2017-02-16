@@ -38,6 +38,14 @@ JS
 
     <?php echo $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
+    <?php
+
+    if (empty($model->sub_title)) {
+        $model->sub_title = 'Что говорить и как вести себя в этой ситуации?';
+    }
+
+    echo $form->field($model, 'sub_title')->textInput(['maxlength' => true]); ?>
+
     <?php echo $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(\common\models\Category::getCategories(), 'id', 'title')); ?>
 
     <?php echo $form->field($model, 'announcement')->widget(TinyMce::className(), [
@@ -69,8 +77,20 @@ JS
         ]
     ]); ?>
 
-
-    <?php echo $form->field($model, 'source')->textInput(['maxlength' => true]) ?>
+    <?php echo $form->field($model, 'source')->widget(TinyMce::className(), [
+        'options' => [
+            'rows' => 5,
+            'placeholder' => 'ссылки на источники, через запятую'
+        ],
+        'language' => 'ru',
+        'clientOptions' => [
+            'plugins' => [
+                'advlist autolink lists link',
+            ],
+            'menubar' => false,
+            'toolbar' => 'link'
+        ]
+    ]); ?>
 
     <?php echo $form->field($model, 'image')->widget(FileInput::classname(), [
         'options' => [

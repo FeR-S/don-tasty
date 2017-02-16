@@ -15,6 +15,8 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
+    <?php echo $form->field($model, 'description')->textarea(['maxlength' => true]); ?>
+
     <?= $form->field($model, 'parent_category_id')->dropDownList(ArrayHelper::map(\common\models\Category::getCategories(), 'id', 'title'), [
         'prompt' => 'Выберите категорию'
     ]); ?>

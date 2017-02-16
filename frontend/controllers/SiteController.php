@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use common\models\Category;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\helpers\Html;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -74,6 +75,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        Yii::$app->view->registerMetaTag([
+            'name' => 'description',
+            'content' => Html::encode('Правовая сторона неприятных ситуаций, с которыми мы, порой, сталкиваемся в жизни. В статьях данного сервиса представлены краткие ответы на возникающие в таких ситуациях вопросы - ничего лишнего.'),
+        ], "main_site_description");
+
         return $this->render('index', [
             'articles' => Article::getArticles(),
         ]);
@@ -157,7 +163,7 @@ class SiteController extends Controller
             if ($user = $model->signup()) {
                 Yii::$app->session->setFlash('success', 'Спасибо. Регистрация прошла успешна. Ваша учетная запись на модерации. Вам придет оповещение на почту.');
 //                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+                return $this->goHome();
 //                }
             } else {
                 Yii::$app->session->setFlash('danger', 'Возникла ошибка');

@@ -27,11 +27,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
 //            'body',
 //            'user_id',
-            'category_id',
+//            'category_id',
             [
                 'attribute' => 'category_id',
                 'value' => function ($model) {
                     return $model->category->title;
+                }
+            ],
+            [
+                'attribute' => 'user_id',
+                'value' => function ($model) {
+                    return $model->user->username;
                 }
             ],
             // 'created_at',

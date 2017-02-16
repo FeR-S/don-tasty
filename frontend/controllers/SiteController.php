@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use common\models\Category;
+use common\models\User;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\helpers\Html;

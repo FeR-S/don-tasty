@@ -49,7 +49,7 @@ return [
                 'articles/<category_slug:[\w_-]+>/<article_slug:[\w_-]+>' => 'article/view/',
                 'articles/<category_slug:[\w_-]+>' => 'article/category/',
                 'articles' => 'article/list',
-                '/' => 'site/index',
+                '' => 'site/index',
 
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<param:\w+>' => '<controller>/<action>',

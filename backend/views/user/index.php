@@ -22,25 +22,39 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
+//            ['class' => 'yii\grid\SerialColumn'],
             'id',
             'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
+            'first_name',
+            'last_name',
+//            'auth_key',
+//            'password_hash',
+//            'password_reset_token',
             // 'email:email',
-            // 'role',
-            // 'status',
-            // 'first_name',
-            // 'last_name',
+            [
+                'attribute' => 'role',
+                'value' => function($model){
+                    return \common\models\User::getRoles()[$model->role];
+                },
+            ],
+            [
+                'attribute' => 'status',
+                'value' => function($model){
+                    return \common\models\User::getStatuses()[$model->status];
+                },
+            ],
+            [
+                'attribute' => 'specialization',
+                'value' => function($model){
+                    return $model->specialization ? \common\models\User::getSpecializations()[$model->specialization] : '-';
+                },
+            ],
             // 'age',
             // 'work_experience',
             // 'city',
-            // 'specialization',
-            // 'created_at',
-            // 'updated_at',
-
+//             'specialization',
+             'created_at',
+             'updated_at',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

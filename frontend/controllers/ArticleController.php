@@ -46,7 +46,7 @@ class ArticleController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return (User::isLawyer(Yii::$app->user->identity->getId()) or User::isAdmin(Yii::$app->user->identity->getId())) ? true : false;
+                            return (User::isLawyer(Yii::$app->user->identity->role) or User::isAdmin(Yii::$app->user->identity->role)) ? true : false;
                         }
                     ],
                 ],

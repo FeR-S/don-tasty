@@ -38,7 +38,6 @@ class UserController extends Controller
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -92,14 +91,17 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            if (!empty($model->password)) {
+                $model->setPassword($model->password);
+                $model->generateAuthKey();
+            }
+            if ($model->save()) return $this->redirect(['index']);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**

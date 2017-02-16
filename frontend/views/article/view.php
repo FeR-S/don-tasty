@@ -35,17 +35,28 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
 
-                <div class="image-blog-post" style="height: 300px; background: url(<?php echo $model->getImageUrl(); ?>) no-repeat center; background-size: cover;"></div>
-<!--                <img class="post-view-image" src="--><?php //echo $model->getImageUrl(); ?><!--" data-holder-rendered="true">-->
+                <div class="image-blog-post"
+                     style="height: 300px; background: url(<?php echo $model->getImageUrl(); ?>) no-repeat center; background-size: cover;"></div>
+                <!--                <img class="post-view-image" src="-->
+                <?php //echo $model->getImageUrl(); ?><!--" data-holder-rendered="true">-->
 
-                <?php if (!empty($model->source)): ?>
+                <?php if (\common\models\User::isLawyer($model->user->role)): ?>
                     <div class="panel-body blog-current-post">
                         <div class="blog-post-content source">
-                            Для написания данной статьи были использованы следующие материалы: <br>
-                            <span><?php echo strip_tags($model->source, '<a>'); ?></span>
+                            Подготовка статьи: <span><?php echo $model->user->first_name . ' ' . $model->user->last_name; ?>, <?php echo \common\models\User::getRoles()[$model->user->role]; ?></span><br>
+                            Специализация: <span><?php echo \common\models\User::getSpecializations()[$model->user->specialization]; ?></span>
+
+                            <?php if (!empty($model->source)): ?>
+                                <br><br>
+                                Для написания данной статьи были использованы следующие материалы: <br>
+                                <span><?php echo strip_tags($model->source, '<a>'); ?></span>
+                            <?php endif; ?>
+
                         </div>
                     </div>
                 <?php endif; ?>
+
+
         </section>
     </div>
 
@@ -77,47 +88,53 @@ $this->params['breadcrumbs'][] = $this->title;
         <section class="blog-comments">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4>Опыт наших читателей <br><small>Поделитесь своим опытом - расскажите, сталкивались ли Вы с такой ситуацией в жизни.</small></h4>
+                    <h4>Опыт наших читателей <br>
+                        <small>Поделитесь своим опытом - расскажите, сталкивались ли Вы с такой ситуацией в жизни.
+                        </small>
+                    </h4>
                     <!--                    <div class="blog-post-content">-->
                     <div id="articles-comment-<?php echo $model->id; ?>"></div>
                     <script type="text/javascript">
                         window.onload = function () {
                             VK.init({apiId: 5877934, onlyWidgets: true});
-                            VK.Widgets.Comments("articles-comment-<?php echo $model->id; ?>", {limit: 10, attach: "*"}, <?php echo $model->id; ?>);
+                            VK.Widgets.Comments("articles-comment-<?php echo $model->id; ?>", {
+                                limit: 10,
+                                attach: "*"
+                            }, <?php echo $model->id; ?>);
                         }
                     </script>
-<!--                    --><?php
-//
-//                    \yii\widgets\Pjax::begin(['enablePushState' => false, 'id' => 'articles-search-pjax']);
-//
-//                    echo ListView::widget([
-//                        'dataProvider' => $article_comments,
-//                        'summary' => false,
-//                        'options' => [
-//                            'class' => 'row'
-//                        ],
-//                        'itemOptions' => [
-//                            'class' => 'col-xs-12',
-//                        ],
-//                        'itemView' => '/article_comments/_article-comment-item',
-//                        'emptyText' => 'Ничего не найдено...',
-//                        'emptyTextOptions' => [
-//                            'class' => 'col-xs-12 article-comment-empty-message'
-//                        ],
-//                    ]); ?>
+                    <!--                    --><?php
+                    //
+                    //                    \yii\widgets\Pjax::begin(['enablePushState' => false, 'id' => 'articles-search-pjax']);
+                    //
+                    //                    echo ListView::widget([
+                    //                        'dataProvider' => $article_comments,
+                    //                        'summary' => false,
+                    //                        'options' => [
+                    //                            'class' => 'row'
+                    //                        ],
+                    //                        'itemOptions' => [
+                    //                            'class' => 'col-xs-12',
+                    //                        ],
+                    //                        'itemView' => '/article_comments/_article-comment-item',
+                    //                        'emptyText' => 'Ничего не найдено...',
+                    //                        'emptyTextOptions' => [
+                    //                            'class' => 'col-xs-12 article-comment-empty-message'
+                    //                        ],
+                    //                    ]); ?>
                     <!--                    </div>-->
                     <!--                    <div class="blog-post-content">-->
 
-<!--                    --><?php
-//
-//                    $form = \kartik\form\ActiveForm::begin(['id' => 'article-comment-form', 'options' => ['data-pjax' => true]]);
-//                    echo $form->field($article_comments_model, 'body', [])->textarea(['maxlength' => true])->label(false);
-//                    echo Html::submitButton('Опубликовать', ['class' => 'btn btn-success']);
-//
-//                    \kartik\form\ActiveForm::end();
-//                    \yii\widgets\Pjax::end();
-//
-//                    ?>
+                    <!--                    --><?php
+                    //
+                    //                    $form = \kartik\form\ActiveForm::begin(['id' => 'article-comment-form', 'options' => ['data-pjax' => true]]);
+                    //                    echo $form->field($article_comments_model, 'body', [])->textarea(['maxlength' => true])->label(false);
+                    //                    echo Html::submitButton('Опубликовать', ['class' => 'btn btn-success']);
+                    //
+                    //                    \kartik\form\ActiveForm::end();
+                    //                    \yii\widgets\Pjax::end();
+                    //
+                    //                    ?>
                     <!--                    </div>-->
                 </div>
             </div>

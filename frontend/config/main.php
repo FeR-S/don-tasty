@@ -51,6 +51,8 @@ return [
                 'articles' => 'article/list',
                 '' => 'site/index',
 
+                ['pattern' => 'sitemap', 'route' => 'sitemap/index', 'suffix' => '.xml'],
+
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<param:\w+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

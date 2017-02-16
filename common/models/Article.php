@@ -138,7 +138,7 @@ class Article extends ActiveRecord
      */
     public function beforeSave($insert)
     {
-        $this->title = self::mb_ucfirst(mb_strtolower($this->title));
+//        $this->title = self::mb_ucfirst(mb_strtolower($this->title));
         return parent::beforeSave($insert); // TODO: Change the auxtogenerated stub
     }
 

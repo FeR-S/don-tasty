@@ -108,8 +108,8 @@ class ArticleSearch extends Article
             'query' => $query,
         ]);
 
-        $this->title = self::mb_ucfirst(mb_strtolower($this->title));
-        $query->andFilterWhere(['like', 'articles.title', $this->title]);
+//        $this->title = self::mb_ucfirst(mb_strtolower($this->title));
+        $query->andFilterWhere(['like', 'LOWER(articles.title)', mb_strtolower($this->title)]);
 
         return $dataProvider;
     }

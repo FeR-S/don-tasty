@@ -23,6 +23,11 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?139"></script>
+    <script type="text/javascript">
+//        window.onload = function () {
+            VK.init({apiId: 5877934, onlyWidgets: true});
+//        }
+    </script>
 </head>
 <body class="home">
 
@@ -104,9 +109,12 @@ NavBar::end();
             ?>
             <!--  END SEARCH FORM  -->
 
+            <p class="text-muted">
+                Не нашли что искали? <a href="#lets-comment">предложите тему для статьи</a>.
+            </p>
+
         </div>
     </div>
-
     <!-- /Intro-->
 
     <!--    <div class="jumbotron top-space">-->
@@ -180,6 +188,31 @@ NavBar::end();
 <!--    </div>-->
 <!--</section>-->
 <!-- /social links -->
+
+
+<?php if (Yii::$app->controller->id == 'site' and Yii::$app->controller->action->id == 'index') { ?>
+<!-- Intro -->
+<div class="white-row" style="background: #fff; padding-top: 20px">
+    <div class="container" id="lets-comment">
+        <h2 class="thin">Предложите тему для статьи</h2>
+        <p class="text-muted">
+            На какой вопрос, Вы хотели бы получить лаконичный ответ с юридической точки зрения? Напишите его в комментариях, и мы обязательно его рассмотрим.
+        </p>
+        <div id="new-artices-ideas"></div>
+        <script type="text/javascript">
+            window.onload = function () {
+                VK.Widgets.Comments("new-artices-ideas", {
+                    limit: 10,
+                    attach: "*"
+                }, 'new-artices-ideas-main-page');
+            }
+        </script>
+    </div>
+</div>
+<!-- /Intro-->
+<?php } ?>
+
+
 
 <footer id="footer" class="top-space">
 

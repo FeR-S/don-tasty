@@ -614,6 +614,7 @@ img.pull-left {
     z-index: 5;
     width: 100%;
     box-sizing: border-box;
+    background: #fff;
 }
 
 #articles-search-form-result ul.articles-list {

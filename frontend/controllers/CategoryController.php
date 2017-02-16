@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\User;
 use Yii;
 use common\models\Category;
 use common\models\CategorySearch;
@@ -111,7 +112,10 @@ class CategoryController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+
+        if (User::isAdmin(Yii::$app->user->identity->role)) {
+            $this->findModel($id)->delete();
+        }
 
         return $this->redirect(['index']);
     }

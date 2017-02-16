@@ -22,12 +22,13 @@ $this->params['breadcrumbs'][] = $this->title;
 //            ['class' => 'yii\grid\SerialColumn'],
             'id',
             'title',
+            'slug',
 //            'body',
 //            'user_id',
             [
                 'attribute' => 'category_id',
                 'value' => function($model){
-                    return $model->category->title;
+                    return $model->category ? $model->category->title : '-';
                 }
             ],
             // 'created_at',

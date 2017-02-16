@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            ['class' => 'yii\grid\SerialColumn'],
             'id',
             'title',
+            'slug',
 //            'body',
 //            'user_id',
 //            'category_id',
@@ -48,12 +49,12 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'status',
             [
                 'class' => 'yii\grid\ActionColumn',
-                'buttons' => [
-                    'view' => function ($url, $model) {
-                        return \yii\helpers\Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $model->url,
-                            ['title' => Yii::t('yii', 'View'), 'data-pjax' => '0']);
-                    }
-                ],
+//                'buttons' => [
+//                    'view' => function ($url, $model) {
+//                        return \yii\helpers\Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $model->url,
+//                            ['title' => Yii::t('yii', 'View'), 'data-pjax' => '0']);
+//                    }
+//                ],
             ],
         ],
     ]); ?>

@@ -81,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <script type="text/javascript">
                         window.onload = function () {
                             VK.init({apiId: 5877934, onlyWidgets: true});
-                            VK.Widgets.Comments("articles-comment-<?php echo $model->id; ?>", {limit: 10, width: "665", attach: "*"});
+                            VK.Widgets.Comments("articles-comment-<?php echo $model->id; ?>", {limit: 10, attach: "*"});
                         }
                     </script>
 <!--                    --><?php

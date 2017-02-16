@@ -46,7 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'source',
             // 'rating',
             // 'views',
-            'status',
             [
                 'attribute' => 'status',
                 'value' => function ($model) {
@@ -55,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
+                'template' => "{edit}"
 //                'buttons' => [
 //                    'view' => function ($url, $model) {
 //                        return \yii\helpers\Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $model->url,

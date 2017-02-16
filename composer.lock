@@ -4,13 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "hash": "342766721c2882b12326599960f16d0c",
-    "content-hash": "1e53454f34b23384182ce84e360acd1d",
-=======
-    "hash": "8c99e9a6b8797040606b829e51fe945a",
+    "hash": "e4186294d3cb42732fa88654c2886866",
     "content-hash": "9d0cf18d116167d0e5f7406fe65efc08",
->>>>>>> 56515a029b45cd9be334f128d936c509827213f0
     "packages": [
         {
             "name": "2amigos/yii2-tinymce-widget",

@@ -1,12 +1,2 @@
 User-agent: *
-Disallow: /site/login
-Disallow: /site/about
-Disallow: /site/contact
-Disallow: /site/signup
-Disallow: /article/create
-Disallow: /article/update
-Disallow: /category/index
-Disallow: /category/view
-Disallow: /category/create
-Disallow: /category/update
-Disallow: /category/delete
+Disallow: /

@@ -31,13 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'category_id',
                 'value' => function ($model) {
-                    return $model->category->title;
+                    return $model->category ? $model->category->title : '-';
                 }
             ],
             [
                 'attribute' => 'user_id',
                 'value' => function ($model) {
-                    return $model->user->username;
+                    return $model->user ? $model->user->username : '-';
                 }
             ],
             // 'created_at',

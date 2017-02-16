@@ -34,7 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <!--                        <p>--><?php //echo $model->user->username; ?><!--</p>-->
                     </div>
                 </div>
-                <img class="post-view-image" src="<?php echo $model->getImageUrl(); ?>" data-holder-rendered="true">
+
+                <div class="image-blog-post" style="height: 300px; background: url(<?php echo $model->getImageUrl(); ?>) no-repeat center; background-size: cover;"></div>
+<!--                <img class="post-view-image" src="--><?php //echo $model->getImageUrl(); ?><!--" data-holder-rendered="true">-->
 
                 <?php if (!empty($model->source)): ?>
                     <div class="panel-body blog-current-post">
@@ -75,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <section class="blog-comments">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4>Опыт наших читателей <br><small>Поделитесь своим опытом - расскажите, сталкивались ли Вы с такой ситуаций в жизни.</small></h4>
+                    <h4>Опыт наших читателей <br><small>Поделитесь своим опытом - расскажите, сталкивались ли Вы с такой ситуацией в жизни.</small></h4>
                     <!--                    <div class="blog-post-content">-->
                     <div id="articles-comment-<?php echo $model->id; ?>"></div>
                     <script type="text/javascript">

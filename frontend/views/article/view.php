@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <section class="blog-comments">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4>Опыт наших читателей</h4>
+                    <h4>Опыт наших читателей <br><small>Поделитесь своим опытом - расскажите, сталкивались ли Вы с такой ситуаций в жизни.</small></h4>
                     <!--                    <div class="blog-post-content">-->
                     <div id="articles-comment-<?php echo $model->id; ?>"></div>
                     <script type="text/javascript">
@@ -106,7 +106,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <!--                    </div>-->
                     <!--                    <div class="blog-post-content">-->
 
-                    <p>Поделитель своим опытом в данной ситуации.</p>
 <!--                    --><?php
 //
 //                    $form = \kartik\form\ActiveForm::begin(['id' => 'article-comment-form', 'options' => ['data-pjax' => true]]);

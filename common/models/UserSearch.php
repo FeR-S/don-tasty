@@ -69,13 +69,13 @@ class UserSearch extends User
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
-            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+//            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
+//            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
+//            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'first_name', $this->first_name])
             ->andFilterWhere(['like', 'last_name', $this->last_name])
-            ->andFilterWhere(['like', 'work_experience', $this->work_experience])
+//            ->andFilterWhere(['like', 'work_experience', $this->work_experience])
             ->andFilterWhere(['like', 'city', $this->city]);
 
         return $dataProvider;

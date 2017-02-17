@@ -49,8 +49,9 @@ if (Yii::$app->user->isGuest) {
 //    $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
     $menuItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
 } else {
-    $menuItems[] = ['label' => 'Статьи', 'url' => ['/article/index']];
     $menuItems[] = ['label' => 'Категории', 'url' => ['/category/index']];
+    $menuItems[] = ['label' => 'Статьи', 'url' => ['/article/index']];
+    $menuItems[] = ['label' => 'Новые темы', 'url' => ['/article/question-index']];
     $menuItems[] = '<li>'
         . Html::beginForm(['/site/logout'], 'post')
         . Html::submitButton(
@@ -196,17 +197,26 @@ NavBar::end();
     <div class="container" id="lets-comment">
         <h2 class="thin">Предложите тему для статьи</h2>
         <p class="text-muted">
-            На какой вопрос, Вы хотели бы получить лаконичный ответ с юридической точки зрения? Напишите его в комментариях, и мы обязательно его рассмотрим.
+            Напишите, на какой вопрос Вы хотели бы получить лаконичный ответ с юридической точки зрения, и мы обязательно его рассмотрим.
         </p>
-        <div id="new-artices-ideas"></div>
-        <script type="text/javascript">
-            window.onload = function () {
-                VK.Widgets.Comments("new-artices-ideas", {
-                    limit: 10,
-                    attach: "*"
-                }, 'new-artices-ideas-main-page');
-            }
-        </script>
+
+        <?php
+
+        $model = new \frontend\models\QuestionForm();
+        echo $this->render('/article/_question-form', [
+            'model' => $model
+        ]);
+
+        ?>
+<!--        <div id="new-artices-ideas"></div>-->
+<!--        <script type="text/javascript">-->
+<!--            window.onload = function () {-->
+<!--                VK.Widgets.Comments("new-artices-ideas", {-->
+<!--                    limit: 10,-->
+<!--                    attach: "*"-->
+<!--                }, 'new-artices-ideas-main-page');-->
+<!--            }-->
+<!--        </script>-->
     </div>
 </div>
 <!-- /Intro-->

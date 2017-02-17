@@ -59,7 +59,7 @@ JS
             ],
             'menubar' => false,
             'maxLength' => 10,
-            'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+            'toolbar' => 'undo redo | bold italic | bullist numlist | link'
         ]
     ]); ?>
 
@@ -73,7 +73,7 @@ JS
                 'insertdatetime paste code'
             ],
             'menubar' => false,
-            'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+            'toolbar' => 'undo redo | bold italic | bullist numlist | link'
         ]
     ]); ?>
 

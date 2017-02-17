@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use common\models\ArticleComments;
 use common\models\ArticleCommentsSearch;
+use frontend\models\QuestionForm;
+use frontend\models\QuestionFormModerate;
 use Yii;
 use common\models\Article;
 use common\models\ArticleSearch;
@@ -61,7 +63,7 @@ class ArticleController extends Controller
     public function actionIndex()
     {
         $searchModel = new ArticleSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->moderationSearch(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -143,9 +145,13 @@ class ArticleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if ($model->user_id == Yii::$app->user->identity->getId()) {
+        if ($model->user_id == Yii::$app->user->identity->getId() or User::isAdmin(Yii::$app->user->identity->role) or $model->status == Article::STATUS_QUESTION) {
+
             if ($model->load(Yii::$app->request->post())) {
+
                 $model->image = UploadedFile::getInstance($model, 'image');
+                $model->user_id = Yii::$app->user->identity->getId();
+
                 if ($model->validate() && $model->save()) {
                     if (!is_null($model->image)) {
                         $model->upload();
@@ -157,9 +163,12 @@ class ArticleController extends Controller
                 }
             }
 
+
             return $this->render('update', [
                 'model' => $model,
             ]);
+
+
         } else {
             $this->redirect(['index']);
         }
@@ -286,6 +295,55 @@ class ArticleController extends Controller
         ]);
         return $dataProvider = new ActiveDataProvider([
             'query' => $articles,
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function actionQuestion()
+    {
+        $model = new QuestionForm();
+
+        if ($model->load(Yii::$app->request->post()) and $model->saveQuestion()) {
+            return "Спасибо.";
+        }
+
+        return $this->render('/article/_question-form', [
+            'model' => $model
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function actionQuestionIndex()
+    {
+        $searchModel = new ArticleSearch();
+        $dataProvider = $searchModel->questionsSearch(Yii::$app->request->queryParams);
+
+        return $this->render('question-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Creates a new Article model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionQuestionCreate()
+    {
+        $model = new QuestionFormModerate();
+
+        if ($model->load(Yii::$app->request->post()) and $model->saveQuestion()) {
+            Yii::$app->session->setFlash('success', 'Новая тема успешно добавлена! Добавь еще одну!');
+            return $this->redirect('question-index');
+        }
+
+        return $this->render('question-create', [
+            'model' => $model,
         ]);
     }
 }

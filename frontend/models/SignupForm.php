@@ -21,6 +21,8 @@ class SignupForm extends Model
     public $work_experience;
     public $city;
     public $specialization;
+    public $status;
+    public $role;
 
     public $verifyCode;
 

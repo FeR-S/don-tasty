@@ -32,6 +32,8 @@ use yii\widgets\ActiveForm;
 
     <?php echo $form->field($model, 'status')->dropDownList(\common\models\User::getStatuses()); ?>
 
+    <?php echo $form->field($model, 'role')->dropDownList(\common\models\User::getRoles()); ?>
+
     <div class="form-group">
         <?= Html::submitButton('Update', ['class' => 'btn btn-primary']) ?>
     </div>

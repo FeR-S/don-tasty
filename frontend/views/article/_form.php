@@ -46,7 +46,7 @@ JS
 
     echo $form->field($model, 'sub_title')->textInput(['maxlength' => true]); ?>
 
-    <?php echo $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(\common\models\Category::getCategories(), 'id', 'title')); ?>
+<!--    --><?php //echo $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(\common\models\Category::getCategories(), 'id', 'title')); ?>
 
     <?php echo $form->field($model, 'announcement')->widget(TinyMce::className(), [
         'options' => ['rows' => 6],

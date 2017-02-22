@@ -121,6 +121,7 @@ class ArticleController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = Yii::$app->user->identity->getId();
             $model->status = Article::STATUS_MODERATION;
+            $model->category_id = Article::CATEGORY_QUESTION;
             $model->image = UploadedFile::getInstance($model, 'image');
 
             if ($model->validate() && $model->save()) {

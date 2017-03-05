@@ -3,6 +3,7 @@ namespace frontend\models;
 
 use yii\base\Model;
 use common\models\User;
+use Yii;
 
 
 /**
@@ -14,6 +15,8 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+
+    public $image;
 
     public $first_name;
     public $last_name;
@@ -51,9 +54,60 @@ class SignupForm extends Model
 
             [['role', 'status'], 'safe'],
 
+            [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'jpg'],
 
 //            ['verifyCode', 'captcha'],
         ];
+    }
+
+    /**
+     * @return bool|string
+     */
+    public static function getImagePath()
+    {
+        return Yii::getAlias('@frontend/web/uploads/users/');
+    }
+
+
+    /**
+     * @param $user_id
+     * @return bool|string
+     */
+    public function removeImage($user_id)
+    {
+        $fileName = self::getImagePath() . $user_id . '.jpg';
+        if (file_exists($fileName) and unlink($fileName)) {
+            return $user_id . '.jpg';
+        }
+        return false;
+    }
+
+
+    /**
+     * @param $user_id
+     * @return bool
+     */
+    public function upload($user_id)
+    {
+        if ($this->validate() and $this->image) {
+            return $this->image->saveAs(Yii::getAlias('@frontend/web/uploads/users/') . $user_id . '.' . $this->image->extension);
+        } else {
+            return false;
+        }
+    }
+
+
+    /**
+     * @param $id
+     * @return bool|string
+     */
+    public static function removeImageStatic($id)
+    {
+        $fileName = self::getImagePath() . $id . '.jpg';
+        if (file_exists($fileName) and unlink($fileName)) {
+            return $id . '.jpg';
+        }
+        return false;
     }
 
     /**

@@ -9,6 +9,7 @@ use common\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -63,13 +64,20 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new SignupForm();
+        $model = new User();
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+
+            if ($model->signup()) {
+
+                if (!is_null($model->image)) {
+                    $model->upload();
+                }
+
                 Yii::$app->session->setFlash('success', 'Спасибо. Регистрация прошла успешна. Ваша учетная запись на модерации. Вам придет оповещение на почту.');
 //                if (Yii::$app->getUser()->login($user)) {
-                return $this->redirect(['update', 'id' => $user->id]);
+                return $this->redirect(['update', 'id' => $model->id]);
 //                }
             } else {
                 Yii::$app->session->setFlash('danger', 'Возникла ошибка');
@@ -91,17 +99,43 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->scenario = "update";
         if ($model->load(Yii::$app->request->post())) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+
             if (!empty($model->password)) {
                 $model->setPassword($model->password);
                 $model->generateAuthKey();
             }
-            if ($model->save()) return $this->redirect(['index']);
+
+
+
+            if ($model->save()) {
+
+                if (!is_null($model->image)) {
+                    $model->upload();
+                }
+
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * @return bool|object
+     */
+    public function actionRemoveImage()
+    {
+        if (Yii::$app->request->isAjax) {
+            $user_id = Yii::$app->request->post()['user_id'];
+            return User::removeImageStatic($user_id);
+        }
+
+        return false;
     }
 
     /**

@@ -43,8 +43,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php if (\common\models\User::isLawyer($model->user->role)): ?>
                     <div class="panel-body blog-current-post">
                         <div class="blog-post-content source">
-                            Подготовка статьи: <span><?php echo $model->user->first_name . ' ' . $model->user->last_name; ?>, <?php echo \common\models\User::getRoles()[$model->user->role]; ?></span><br>
-                            Специализация: <span><?php echo \common\models\User::getSpecializations()[$model->user->specialization]; ?></span>
+                            <div style="overflow: hidden">
+                                <img src="<?php echo $model->user->getImageUrl(); ?>" alt="" style="border-radius: 50%;float: left;width: 50px;height: 50px;margin: 5px;margin-right: 10px;margin-top: 2px;display: table;">
+                                <div class="item-info" style="padding-top: 12px;">
+                                    <div class="item-title">
+                                        Подготовка статьи: <span><b style="color: #000;"><?php echo $model->user->first_name . ' ' . $model->user->last_name; ?></b>, <?php echo \common\models\User::getRoles()[$model->user->role]; ?></span>
+                                    </div>
+                                    <div class="item-description">Специализация:
+                                        <span><?php echo \common\models\User::getSpecializations()[$model->user->specialization]; ?></span>
+                                    </div>
+                                </div>
+
+                            </div>
 
                             <?php if (!empty($model->source)): ?>
                                 <br><br>

@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
 
                             <?php if (!empty($model->source)): ?>
-                                <br><br>
+                                <br>
                                 Для написания данной статьи были использованы следующие материалы: <br>
                                 <span><?php echo strip_tags($model->source, '<a>'); ?></span>
                             <?php endif; ?>

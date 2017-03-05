@@ -174,8 +174,8 @@ class User extends ActiveRecord implements IdentityInterface
     public static function getRoles()
     {
         return [
-            self::ROLE_ADMIN => 'админ',
-            self::ROLE_LAWYER => 'юрист'
+            self::ROLE_ADMIN => 'Админ',
+            self::ROLE_LAWYER => 'Юрист'
         ];
     }
 

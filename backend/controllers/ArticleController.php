@@ -66,7 +66,7 @@ class ArticleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->scenario = Article::SCENARIO_PUBLIC;
         if ($model->load(Yii::$app->request->post())) {
             $model->image = UploadedFile::getInstance($model, 'image');
 

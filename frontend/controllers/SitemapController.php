@@ -24,7 +24,14 @@ class SitemapController extends Controller
             $urls = [];
 
             // categories
-            $categories = Category::find()->joinWith('articles')->where(['articles.status' => Article::STATUS_PUBLIC])->groupBy('categories.id')->all();
+            $categories = Category::find()
+                ->joinWith('articles')
+                ->where([
+                    'articles.status' => Article::STATUS_PUBLIC
+                ])
+                ->andFilterWhere([
+                    '!=', 'categories.id', Article::CATEGORY_QUESTION
+                ])->groupBy('categories.id')->all();
             foreach ($categories as $category) {
                 $urls[] = [
                     'url' => \Yii::$app->urlManager->createUrl([$category->url]),
@@ -33,7 +40,14 @@ class SitemapController extends Controller
             }
 
             // articles
-            $articles = Article::find()->where(['status' => Article::STATUS_PUBLIC])->all();
+            $articles = Article::find()
+                ->where([
+                    'status' => Article::STATUS_PUBLIC
+                ])
+                ->andFilterWhere([
+                    '!=', 'category_id', Article::CATEGORY_QUESTION
+                ])
+                ->all();
             foreach ($articles as $article) {
                 $urls[] = [
                     'url' => \Yii::$app->urlManager->createUrl([$article->url]),

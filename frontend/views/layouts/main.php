@@ -280,7 +280,7 @@ NavBar::end();
                 <div class="col-md-6 widget">
                     <div class="widget-body">
                         <p class="text-right">
-                            Все права защищены &copy; 2016, <b style="color: #fff">judlit.ru</b>.
+                            Все права защищены &copy; 2016, <b style="color: #fff">judlit.ru</b>, Россия.
                         </p>
                     </div>
                 </div>

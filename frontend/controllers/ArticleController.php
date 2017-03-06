@@ -71,13 +71,15 @@ class ArticleController extends Controller
         ]);
     }
 
+
     /**
+     * @param $category_slug
      * @param $article_slug
      * @return string
      */
-    public function actionView($article_slug)
+    public function actionView($category_slug, $article_slug)
     {
-        $model = $this->findModelBySlug($article_slug);
+        $model = $this->findModelBySlug($category_slug, $article_slug);
 //        $article_comments_model = new ArticleCommentsSearch();
 
 //        $article_comments = new ActiveDataProvider([
@@ -216,13 +218,18 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param $slug
+     * @param $category_slug
+     * @param $article_slug
      * @return array|null|\yii\db\ActiveRecord
      * @throws NotFoundHttpException
      */
-    protected function findModelBySlug($slug)
+    protected function findModelBySlug($category_slug, $article_slug)
     {
-        if (($model = Article::find()->where(['slug' => $slug])->one()) !== null) {
+        if (($model = Article::find()->joinWith('category')->where([
+                'articles.slug' => $article_slug,
+                'categories.slug' => $category_slug,
+            ])->one()) !== null
+        ) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

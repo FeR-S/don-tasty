@@ -77,12 +77,12 @@ class CategoryController extends Controller
         $model = new Category();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            Yii::$app->getSession()->setFlash('success', 'Новая категория: <b>'. $model->title .'</b> успешно добавлена.');
+            return $this->redirect(['index']);
         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**

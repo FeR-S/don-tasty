@@ -139,7 +139,7 @@ blockquote {
 }
 
 label {
-    color: #777;
+    color: #000;
 }
 
 .thin {
@@ -644,4 +644,10 @@ img.pull-left {
 
 .article-comment-empty-message {
     padding: 0 15px 15px;
+}
+
+small.sub-description {
+    display: block;
+    margin: -4px 0 5px 0;
+    color: #676767;
 }

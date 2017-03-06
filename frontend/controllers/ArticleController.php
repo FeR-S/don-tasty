@@ -146,6 +146,7 @@ class ArticleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
         if ($model->user_id == Yii::$app->user->identity->getId() or User::isAdmin(Yii::$app->user->identity->role) or $model->status == Article::STATUS_QUESTION) {
 
             if ($model->load(Yii::$app->request->post())) {
@@ -171,6 +172,7 @@ class ArticleController extends Controller
 
 
         } else {
+            Yii::$app->getSession()->setFlash('danger', 'Вы можете редактировать только свои статьи.');
             $this->redirect(['index']);
         }
     }

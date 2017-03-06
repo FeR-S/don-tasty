@@ -7,31 +7,42 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\ArticleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Categories';
+$this->title = 'Категории статей';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить категорию', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-//            ['class' => 'yii\grid\SerialColumn'],
+    <?php
+
+    $columns = [
+        'title',
+        [
+            'label' => 'Количество статей',
+            'value' => function ($model) {
+                return \common\models\Article::getArticlesCount($model->id);
+            }
+        ],
+    ];
+
+    if (\common\models\User::isAdmin(Yii::$app->user->identity->role)) {
+        array_unshift($columns,
             'id',
-            'title',
             'slug',
-//            'label_class',
-//            'parent_category_id',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => "{update}"
-            ],
-        ],
+            ]);
+    }
+
+    echo GridView::widget([
+        'dataProvider' => $dataProvider,
+//        'filterModel' => $searchModel,
+        'columns' => $columns,
     ]); ?>
 </div>

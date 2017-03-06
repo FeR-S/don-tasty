@@ -228,6 +228,7 @@ class Article extends ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Заголовок',
+            'sub_title' => 'Подзаголовок',
             'body' => 'Текст',
             'user_id' => 'User ID',
             'category_id' => 'Category ID',
@@ -236,7 +237,7 @@ class Article extends ActiveRecord
             'source' => 'Источник информации для статьи',
             'rating' => 'Rating',
             'views' => 'Views',
-            'status' => 'Status',
+            'status' => 'Статус',
             'image' => 'Изображение',
             'announcement' => 'Краткий ответ',
         ];

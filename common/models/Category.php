@@ -80,6 +80,7 @@ class Category extends ActiveRecord
     {
         return [
             [['title', 'slug'], 'required'],
+            ['title', 'unique', 'message' => 'Такой заголовок уже существует. Заголовок категории должен быть уникальным!'],
             [['parent_category_id'], 'integer'],
             [['label_class'], 'safe'],
             [['description'], 'string'],
@@ -95,7 +96,7 @@ class Category extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
+            'title' => 'Заголовок',
             'parent_category_id' => 'Parent Category ID',
             'label_class' => 'Label Class',
         ];

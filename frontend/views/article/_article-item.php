@@ -20,7 +20,7 @@ if ($index % $modelIndex == $modelKey) { ?>
                 <div class="blog-post-meta">
                     <span
                         class="label label-light <?php echo $model->category->label_class; ?>"><?php echo $model->category->title; ?></span>
-                    <p class="blog-post-date pull-right"><?php echo \common\models\Article::getRussianMonths()[date('n', $date)] . ' ' . date('d, Y', $date); ?></p>
+                    <p class="blog-post-date pull-right"><?php echo date('d', $date) . ' ' . \common\models\Article::getRussianMonths()[date('n', $date)] . ', ' . date('Y', $date); ?></p>
                 </div>
                 <div class="blog-post-content">
 

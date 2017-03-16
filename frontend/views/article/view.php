@@ -12,6 +12,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Статьи', 'url' => ['list']];
 $this->params['breadcrumbs'][] = ['label' => $model->category->title, 'url' => $model->category->url];
 $this->params['breadcrumbs'][] = $this->title;
 
+$date = strtotime($model->created_at);
+
 ?>
 
 <div class="row" style="margin-top: 30px">
@@ -21,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-body blog-current-post">
                     <div class="blog-post-meta">
                         <span class="label label-light <?php echo $model->category->label_class; ?>"><?php echo $model->category->title; ?></span>
-                        <p class="blog-post-date pull-right"><?php echo $model->created_at; ?></p>
+                        <p class="blog-post-date pull-right"><?php echo date('d', $date) . ' ' . \common\models\Article::getRussianMonths()[date('n', $date)] . ', ' . date('Y', $date); ?></p>
                     </div>
                     <h2 class="blog-post-title"><?php echo $model->title; ?>
                         <?php if (!empty($model->sub_title)) echo '<br><small>' . $model->sub_title . '</small>'; ?>

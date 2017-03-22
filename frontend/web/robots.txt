@@ -3,3 +3,5 @@ Disallow: /article/
 Disallow: /category/
 Disallow: /site/
 Disallow: /articles/new-themes/
+
+Host: judlit.ru

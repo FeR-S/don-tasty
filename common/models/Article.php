@@ -65,7 +65,20 @@ class Article extends ActiveRecord
      */
     public static function getRussianMonths()
     {
-        return ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
+        return [
+            1 => 'Января',
+            2 => 'Февраля',
+            3 => 'Марта',
+            4 => 'Апреля',
+            5 => 'Мая',
+            6 => 'Июня',
+            7 => 'Июля',
+            8 => 'Августа',
+            9 => 'Сентября',
+            10 => 'Октября',
+            11 => 'Ноября',
+            12 => 'Декабря'
+        ];
     }
 
     /**
@@ -118,7 +131,7 @@ class Article extends ActiveRecord
 
             [['title', 'slug'], 'string', 'max' => 255],
             [['description'], 'string'],
-            [['body'], 'string', 'max' => 2048],
+            [['body'], 'string', 'max' => 4096],
             [['announcement'], 'string', 'max' => 1024],
             [['source'], 'string', 'max' => 512],
             [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'jpg'],

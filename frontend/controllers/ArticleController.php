@@ -20,6 +20,7 @@ use yii\data\ActiveDataProvider;
 use common\models\Category;
 use yii\web\Response;
 use kartik\form\ActiveForm;
+use common\components\LImageHandler;
 
 
 /**
@@ -159,6 +160,17 @@ class ArticleController extends Controller
                 if ($model->validate() && $model->save()) {
                     if (!is_null($model->image)) {
                         $model->upload();
+                    } else {
+                        $font_path = 'fonts/HelveticaNeueCyr-Medium.otf';
+                        $imagePath = 'uploads/article_images/default.jpg';
+                        $fontSize = 38;
+                        $colorArray = [48, 48, 48];
+                        $ih = new LImageHandler();
+                        $imgObj = $ih->load($imagePath);
+                        $imgObj->text($model->title, $font_path, $fontSize, $colorArray, LImageHandler::CORNER_CENTER_TOP, 0, 180);
+//                        $imgObj->text('Виктор Зинченко', $font_path, 30, $colorArray, LImageHandler::CORNER_RIGHT_BOTTOM, 50, 50);
+                        var_dump($imgObj->save($this->id . '.jpg', false, 100));
+                        die;
                     }
                     return $this->redirect($model->url);
                 } else {

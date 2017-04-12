@@ -181,8 +181,7 @@ NavBar::end();
 <?php //} ?>
 
 
-
-<footer id="footer" class="top-space">
+<footer id="footer">
 
     <div class="footer1">
         <div class="container">

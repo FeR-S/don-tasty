@@ -20,6 +20,13 @@ $this->title = 'Judlit - юридическая грамотность.';
 <!--</div>-->
 <!-- /Intro-->
 
+<div class="">
+    <h2 class="thin">Последние статьи <small></small></h2>
+    <br>
+    <br>
+</div>
+<!--<h2>Последние статьи</h2>-->
+
 <div class="row" style="    min-height: 300px;">
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <?= ListView::widget([
@@ -129,6 +136,8 @@ $this->title = 'Judlit - юридическая грамотность.';
         </div>
     </div>
 </section>
+
+
 
 
 

@@ -160,18 +160,65 @@ class ArticleController extends Controller
                     if (!is_null($model->image)) {
                         $model->upload();
                     } else {
-//                        $fontSize = 38;
-//                        $colorArray = [48, 48, 48];
-//
+                        $fontSize = 38;
+                        $colorArray = [48, 48, 48];
+                        $pattern = "/[\s,]+/";
+
+
+                        $model->title = mb_strtoupper(trim('я по нах тут теперь'));
+                        $words_array = preg_split($pattern, $model->title);
+//                        var_dump($model->title);
+
+                        // считаем количество символов строки
+
+                        // есть ширина текста
+                        // подгоняем вторую строку что бы была по длине с первой
+
+                        $first_row = '';
+                        $first_row_max2 = 700;
+                        $first_row_max = 15;
+                        $second_row = '';
+
+                        // подгоняем размер шрифта первой строки
+                        foreach ($words_array as $word) {
+                            if (strlen($first_row) < $first_row_max) {
+                                $first_row .= ' ' . $word;
+                            } else {
+                                $second_row .= ' ' . $word;
+                            }
+                        }
+
 //                        if (mb_strlen($model->title) > 27) {
 //                            $model->title = mb_substr($model->title, 0, 27) . '...';
 //                        };
-//
-//                        $ih = new LImageHandler();
-//                        $imgObj = $ih->load(Article::DEFAULT_IMG_PATH);
-//                        $imgObj->crop(2000, 3000);
-//                        $imgObj->text($model->title, Article::DEFAULT_IMG_FONT_PATH, $fontSize, $colorArray, LImageHandler::CORNER_CENTER_TOP, 0, 180);
-//                        $imgObj->save(Yii::getAlias('@frontend/web/uploads/article_images/') . $model->id . Article::DEFAULT_IMG_EXT, false, 100);
+
+                        $first_row = trim($first_row);
+                        $fs_1 = 10;
+                        while (($first_row_max2 - LImageHandler::getTextWidth($fs_1, 0, Article::DEFAULT_IMG_FONT_PATH, $first_row)) >= 0) {
+                            $fs_1 = $fs_1 + 1;
+                        }
+
+                        // берем высоту первой строки, что бы узнать на сколько опустить вторую строку
+                        $first_row_height = LImageHandler::getTextHeight($fs_1, 0, Article::DEFAULT_IMG_FONT_PATH, $first_row);
+
+                        // подгоняем размер шрифта первой строки
+                        $second_row = trim($second_row);
+                        $fs_2 = 5;
+                        while (($first_row_max2 - LImageHandler::getTextWidth($fs_2, 0, Article::DEFAULT_IMG_FONT_PATH, $second_row)) > 0) {
+                            $fs_2 = $fs_2 + 1;
+                        }
+
+                        $ih = new LImageHandler();
+                        $imgObj = $ih->load(Article::DEFAULT_IMG_PATH);
+                        $imgObj->crop(2000, 3000);
+                        $imgObj->text($first_row, Article::DEFAULT_IMG_FONT_PATH, $fs_1, $colorArray, LImageHandler::CORNER_CENTER_TOP, 0, 150);
+                        $imgObj->text($second_row, Article::DEFAULT_IMG_FONT_PATH, $fs_2, $colorArray, LImageHandler::CORNER_CENTER_TOP, 0, $first_row_height + 150);
+//                        $imgObj->flip(LImageHandler::FLIP_HORIZONTAL);
+                        var_dump($imgObj->show(false, 100));
+//                        var_dump($imgObj->textHeight);
+//                        var_dump($imgObj->textWidth);
+                        die;
+                        $imgObj->save(Yii::getAlias('@frontend/web/uploads/article_images/') . $model->id . Article::DEFAULT_IMG_EXT, false, 100);
                     }
                     return $this->redirect($model->url);
                 } else {

@@ -41,6 +41,7 @@ class Article extends ActiveRecord
 
     const DEFAULT_IMG_EXT = '.jpg';
     const DEFAULT_IMG_FONT_PATH = 'fonts/HelveticaNeueCyr-Medium.otf';
+    const DEFAULT_FONT_SIZE = 12;
     const DEFAULT_IMG_PATH = 'uploads/article_images/default.jpg';
 
     /**

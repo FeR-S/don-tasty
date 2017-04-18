@@ -24,6 +24,9 @@ class LImageHandler
     private $fileName = '';
     public $transparencyColor = array(0, 0, 0);
 
+    public $textHeight;
+    public $textWidth;
+
     const IMG_GIF = 1;
     const IMG_JPEG = 2;
     const IMG_PNG = 3;
@@ -426,6 +429,8 @@ class LImageHandler
         $textHeight = $bBox[1] - $bBox[7];
         $textWidth = $bBox[2] - $bBox[0];
 
+        $this->textHeight = $textHeight;
+        $this->textWidth = $textWidth;
 
         switch ($corner) {
             case self::CORNER_LEFT_TOP:
@@ -477,6 +482,20 @@ class LImageHandler
         imagettftext($this->image, $size, $angle, $posX, $posY + $textHeight, $color, $fontFile, $text);
 
         return $this;
+    }
+
+    public static function getTextWidth($size, $angle, $fontFile, $text)
+    {
+        $bBox = imagettfbbox($size, $angle, $fontFile, $text);
+        $textWidth = $bBox[2] - $bBox[0];
+        return $textWidth;
+    }
+
+    public static function getTextHeight($size, $angle, $fontFile, $text)
+    {
+        $bBox = imagettfbbox($size, $angle, $fontFile, $text);
+        $textHeight = $bBox[1] - $bBox[7];
+        return $textHeight;
     }
 
     public function adaptiveThumb($width, $height)

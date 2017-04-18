@@ -651,3 +651,10 @@ small.sub-description {
     margin: -4px 0 5px 0;
     color: #676767;
 }
+
+small.custom-small {
+    font-size: 13px;
+    line-height: 16px !important;
+    display: inline-block;
+    padding-top: 4px;
+}

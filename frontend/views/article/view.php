@@ -26,7 +26,7 @@ $date = strtotime($model->created_at);
                         <p class="blog-post-date pull-right"><?php echo date('d', $date) . ' ' . \common\models\Article::getRussianMonths()[date('n', $date)] . ', ' . date('Y', $date); ?></p>
                     </div>
                     <h2 class="blog-post-title"><?php echo $model->title; ?>
-                        <?php if (!empty($model->sub_title)) echo '<br><small>' . $model->sub_title . '</small>'; ?>
+                        <?php if (!empty($model->sub_title)) echo '<br><small class="custom-small">' . $model->sub_title . '</small>'; ?>
                     </h2>
                     <div class="blog-post-tezis">
                         <?php echo $model->announcement; ?>

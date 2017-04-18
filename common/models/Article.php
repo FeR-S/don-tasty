@@ -39,6 +39,10 @@ class Article extends ActiveRecord
 
     const CATEGORY_QUESTION = 0;
 
+    const DEFAULT_IMG_EXT = '.jpg';
+    const DEFAULT_IMG_FONT_PATH = 'fonts/HelveticaNeueCyr-Medium.otf';
+    const DEFAULT_IMG_PATH = 'uploads/article_images/default.jpg';
+
     /**
      * @return array
      */
@@ -169,11 +173,11 @@ class Article extends ActiveRecord
      */
     public function getImageUrl()
     {
-        $image_path = self::getImagePath() . $this->id . '.jpg';
+        $image_path = self::getImagePath() . $this->id . self::DEFAULT_IMG_EXT;
         if (file_exists($image_path)) {
-            return Yii::getAlias('@public_site') . '/uploads/article_images/' . $this->id . '.jpg';
+            return Yii::getAlias('@public_site') . '/uploads/article_images/' . $this->id . self::DEFAULT_IMG_EXT;
         } else {
-            return Yii::getAlias('@public_site') . '/uploads/article_images/default.png';
+            return Yii::getAlias('@public_site') . self::DEFAULT_IMG_PATH;
         }
     }
 

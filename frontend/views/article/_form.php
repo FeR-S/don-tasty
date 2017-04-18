@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use kartik\widgets\FileInput;
 use yii\helpers\ArrayHelper;
 use dosamigos\tinymce\TinyMce;
+use vova07\imperavi\Widget;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
@@ -54,18 +55,15 @@ JS
 
     <?php echo $form->field($model, 'announcement', [
         'template' => "{label}<small class='sub-description'>Основная и краткая информация по теме статьи.</small>\n{input}\n{hint}\n{error}",
-    ])->widget(TinyMce::className(), [
+    ])->widget(Widget::className(), [
         'options' => ['rows' => 6],
-        'language' => 'ru',
-        'clientOptions' => [
+        'settings' => [
+            'lang' => 'ru',
+            'minHeight' => 200,
             'plugins' => [
-                'advlist autolink lists link image',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime paste code'
-            ],
-            'menubar' => false,
-            'maxLength' => 10,
-            'toolbar' => 'undo redo | bold italic | bullist numlist | link'
+                'clips',
+                'fullscreen'
+            ]
         ]
     ]); ?>
 

@@ -156,21 +156,22 @@ class ArticleController extends Controller
 
                 $model->image = UploadedFile::getInstance($model, 'image');
                 $model->user_id = Yii::$app->user->identity->getId();
-
                 if ($model->validate() && $model->save()) {
                     if (!is_null($model->image)) {
                         $model->upload();
                     } else {
-                        $font_path = 'fonts/HelveticaNeueCyr-Medium.otf';
-                        $imagePath = 'uploads/article_images/default.jpg';
-                        $fontSize = 38;
-                        $colorArray = [48, 48, 48];
-                        $ih = new LImageHandler();
-                        $imgObj = $ih->load($imagePath);
-                        $imgObj->text($model->title, $font_path, $fontSize, $colorArray, LImageHandler::CORNER_CENTER_TOP, 0, 180);
-//                        $imgObj->text('Виктор Зинченко', $font_path, 30, $colorArray, LImageHandler::CORNER_RIGHT_BOTTOM, 50, 50);
-                        var_dump($imgObj->save($this->id . '.jpg', false, 100));
-                        die;
+//                        $fontSize = 38;
+//                        $colorArray = [48, 48, 48];
+//
+//                        if (mb_strlen($model->title) > 27) {
+//                            $model->title = mb_substr($model->title, 0, 27) . '...';
+//                        };
+//
+//                        $ih = new LImageHandler();
+//                        $imgObj = $ih->load(Article::DEFAULT_IMG_PATH);
+//                        $imgObj->crop(2000, 3000);
+//                        $imgObj->text($model->title, Article::DEFAULT_IMG_FONT_PATH, $fontSize, $colorArray, LImageHandler::CORNER_CENTER_TOP, 0, 180);
+//                        $imgObj->save(Yii::getAlias('@frontend/web/uploads/article_images/') . $model->id . Article::DEFAULT_IMG_EXT, false, 100);
                     }
                     return $this->redirect($model->url);
                 } else {
@@ -179,11 +180,9 @@ class ArticleController extends Controller
                 }
             }
 
-
             return $this->render('update', [
                 'model' => $model,
             ]);
-
 
         } else {
             Yii::$app->getSession()->setFlash('danger', 'Вы можете редактировать только свои статьи.');
@@ -194,7 +193,8 @@ class ArticleController extends Controller
     /**
      * @return string
      */
-    public function actionList()
+    public
+    function actionList()
     {
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, true);
@@ -220,7 +220,8 @@ class ArticleController extends Controller
      * @return static
      * @throws NotFoundHttpException
      */
-    protected function findModel($id)
+    protected
+    function findModel($id)
     {
         if (($model = Article::findOne($id)) !== null) {
             return $model;
@@ -235,7 +236,8 @@ class ArticleController extends Controller
      * @return array|null|\yii\db\ActiveRecord
      * @throws NotFoundHttpException
      */
-    protected function findModelBySlug($category_slug, $article_slug)
+    protected
+    function findModelBySlug($category_slug, $article_slug)
     {
         if (($model = Article::find()->joinWith('category')->where([
                 'articles.slug' => $article_slug,
@@ -252,7 +254,8 @@ class ArticleController extends Controller
      * @param $category_slug
      * @return string
      */
-    public function actionCategory($category_slug)
+    public
+    function actionCategory($category_slug)
     {
         if ($model = Category::find()->where(['slug' => $category_slug])->one()) {
             $dataProvider = new ActiveDataProvider([
@@ -279,7 +282,8 @@ class ArticleController extends Controller
     /**
      * @return bool|object
      */
-    public function actionRemoveImage()
+    public
+    function actionRemoveImage()
     {
         if (Yii::$app->request->isAjax) {
             $article_id = Yii::$app->request->post()['article_id'];
@@ -292,7 +296,8 @@ class ArticleController extends Controller
     /**
      *
      */
-    public function actionSearch()
+    public
+    function actionSearch()
     {
         $searchModel = new ArticleSearch();
         $searchModel->scenario = ArticleSearch::SCENARIO_PUBLIC_SEARCH;
@@ -309,7 +314,8 @@ class ArticleController extends Controller
      * @param $category_id
      * @return ActiveDataProvider
      */
-    public static function getCategoryArticles($category_id)
+    public
+    static function getCategoryArticles($category_id)
     {
         $articles = Article::find()->where([
             'category_id' => $category_id,
@@ -323,7 +329,8 @@ class ArticleController extends Controller
     /**
      *
      */
-    public function actionQuestion()
+    public
+    function actionQuestion()
     {
         $model = new QuestionForm();
 
@@ -339,7 +346,8 @@ class ArticleController extends Controller
     /**
      *
      */
-    public function actionQuestionIndex()
+    public
+    function actionQuestionIndex()
     {
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->questionsSearch(Yii::$app->request->queryParams);
@@ -355,7 +363,8 @@ class ArticleController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionQuestionCreate()
+    public
+    function actionQuestionCreate()
     {
         $model = new QuestionFormModerate();
 

@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use dosamigos\tinymce\TinyMce;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\FileInput;
+use vova07\imperavi\Widget;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
@@ -50,47 +51,44 @@ JS
 
     <?php echo $form->field($model, 'description')->textarea(['maxlength' => true]); ?>
 
-    <?php echo $form->field($model, 'announcement')->widget(TinyMce::className(), [
-        'options' => ['rows' => 6],
-        'language' => 'ru',
-        'clientOptions' => [
+    <?php echo $form->field($model, 'announcement')->widget(Widget::className(), [
+        'settings' => [
+            'lang' => 'ru',
+            'minHeight' => 200,
             'plugins' => [
-                'advlist autolink lists link image',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime paste code'
-            ],
-            'menubar' => false,
-            'maxLength' => 10,
-            'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+                'clips',
+                'fullscreen'
+            ]
         ]
     ]); ?>
 
-    <?php echo $form->field($model, 'body')->widget(TinyMce::className(), [
-        'options' => ['rows' => 10],
-        'language' => 'ru',
-        'clientOptions' => [
-            'plugins' => [
-                'advlist autolink lists link image',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime paste code'
-            ],
-            'menubar' => false,
-            'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-        ]
-    ]); ?>
-
-    <?php echo $form->field($model, 'source')->widget(TinyMce::className(), [
+    <?php echo $form->field($model, 'body')->widget(Widget::className(), [
         'options' => [
-            'rows' => 5,
+            'rows' => 10,
+            'placeholder' => 'текст'
+        ],
+        'settings' => [
+            'lang' => 'ru',
+            'minHeight' => 200,
+            'plugins' => [
+                'clips',
+                'fullscreen'
+            ]
+        ]
+    ]); ?>
+
+    <?php echo $form->field($model, 'source')->widget(Widget::className(), [
+        'options' => [
+            'rows' => 2,
             'placeholder' => 'ссылки на источники, через запятую'
         ],
-        'language' => 'ru',
-        'clientOptions' => [
+        'settings' => [
+            'lang' => 'ru',
+            'minHeight' => 200,
             'plugins' => [
-                'advlist autolink lists link',
-            ],
-            'menubar' => false,
-            'toolbar' => 'link'
+                'clips',
+                'fullscreen'
+            ]
         ]
     ]); ?>
 
@@ -127,6 +125,8 @@ JS
     <!--    --><?php //echo $form->field($model, 'views')->textInput() ?>
 
     <?php echo $form->field($model, 'status')->dropDownList(\common\models\Article::getStatuses()); ?>
+
+    <?php echo $form->field($model, 'user_id')->dropDownList(ArrayHelper::map(\common\models\User::find()->where(['role' => \common\models\User::ROLE_LAWYER])->all(), 'id', 'username')); ?>
 
     <div class="form-group">
         <?php echo Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -165,7 +165,7 @@ class ArticleController extends Controller
                         $pattern = "/[\s,]+/";
 
 
-                        $model->title = mb_strtoupper(trim('я по нах тут теперь'));
+                        $model->title = mb_strtoupper(trim('я по нах тут теперь еба'));
                         $words_array = preg_split($pattern, $model->title);
 //                        var_dump($model->title);
 
@@ -175,7 +175,7 @@ class ArticleController extends Controller
                         // подгоняем вторую строку что бы была по длине с первой
 
                         $first_row = '';
-                        $first_row_max2 = 700;
+                        $first_row_max2 = 600;
                         $first_row_max = 15;
                         $second_row = '';
 
@@ -194,7 +194,7 @@ class ArticleController extends Controller
 
                         $first_row = trim($first_row);
                         $fs_1 = 10;
-                        while (($first_row_max2 - LImageHandler::getTextWidth($fs_1, 0, Article::DEFAULT_IMG_FONT_PATH, $first_row)) >= 0) {
+                        while (($first_row_max2 - 10 - LImageHandler::getTextWidth($fs_1, 0, Article::DEFAULT_IMG_FONT_PATH, $first_row)) >= 0) {
                             $fs_1 = $fs_1 + 1;
                         }
 
@@ -204,21 +204,83 @@ class ArticleController extends Controller
                         // подгоняем размер шрифта первой строки
                         $second_row = trim($second_row);
                         $fs_2 = 5;
-                        while (($first_row_max2 - LImageHandler::getTextWidth($fs_2, 0, Article::DEFAULT_IMG_FONT_PATH, $second_row)) > 0) {
+                        while (($first_row_max2 - 10 - LImageHandler::getTextWidth($fs_2, 0, Article::DEFAULT_IMG_FONT_PATH, $second_row)) >= 0) {
                             $fs_2 = $fs_2 + 1;
                         }
 
+                        // берем высоту второй строки
+                        $second_row_height = LImageHandler::getTextHeight($fs_2, 0, Article::DEFAULT_IMG_FONT_PATH, $second_row);
+
+                        // создаем пустое изображение, куда напишем текст
+                        $template = imageCreateTrueColor($first_row_max2, $first_row_height + $second_row_height + 15);
+
+                        // устанавливаем цвет фона шаблона
+                        $template_with_bg = imagecolorallocate($template, 255, 255, 255);
+                        imagefill($template, 0, 0, $template_with_bg);
+
+                        // Сохраняем шаблон
+                        imagejpeg($template, Yii::getAlias('@frontend/web/uploads/article_images/temp.jpg'));
+                        imagedestroy($template);
+
+
                         $ih = new LImageHandler();
-                        $imgObj = $ih->load(Article::DEFAULT_IMG_PATH);
-                        $imgObj->crop(2000, 3000);
-                        $imgObj->text($first_row, Article::DEFAULT_IMG_FONT_PATH, $fs_1, $colorArray, LImageHandler::CORNER_CENTER_TOP, 0, 150);
-                        $imgObj->text($second_row, Article::DEFAULT_IMG_FONT_PATH, $fs_2, $colorArray, LImageHandler::CORNER_CENTER_TOP, 0, $first_row_height + 150);
+//                        $imgObj = $ih->load(Article::DEFAULT_IMG_PATH);
+                        $imgObj = $ih->load(Yii::getAlias('@frontend/web/uploads/article_images/temp.jpg'));
+//                        $imgObj->crop(2000, 3000);
+                        $imgObj->text($first_row, Article::DEFAULT_IMG_FONT_PATH, $fs_1, $colorArray, LImageHandler::CORNER_CENTER_TOP, 0, 5);
+                        $imgObj->text($second_row, Article::DEFAULT_IMG_FONT_PATH, $fs_2, $colorArray, LImageHandler::CORNER_CENTER_TOP, 0, $first_row_height + 8);
 //                        $imgObj->flip(LImageHandler::FLIP_HORIZONTAL);
-                        var_dump($imgObj->show(false, 100));
+
+//                        var_dump($imgObj->show(false, 100));
+
 //                        var_dump($imgObj->textHeight);
-//                        var_dump($imgObj->textWidth);
-                        die;
+//                        $imgObj->resize($imgObj->textWidth / 2 + 30, $imgObj->textHeight / 2 + 30);
+//                        var_dump($imgObj->show(false, 100));
+//                        die;
+
+                        // сохраняем самую большую часть
                         $imgObj->save(Yii::getAlias('@frontend/web/uploads/article_images/') . $model->id . Article::DEFAULT_IMG_EXT, false, 100);
+
+
+                        // открываем сохраненный шаблон
+                        list($opened_template_width, $opened_template_height) = getimagesize(Yii::getAlias('@frontend/web/uploads/article_images/') . $model->id . Article::DEFAULT_IMG_EXT);
+                        $opened_template = imagecreatefromjpeg(Yii::getAlias('@frontend/web/uploads/article_images/') . $model->id . Article::DEFAULT_IMG_EXT);
+
+                        // чуть меньше
+                        $imgObj->resize($opened_template_width / 2, $opened_template_height / 2);
+
+
+                        // теперь этот шаблон надо вертеть и заполонять им большую картинку
+                        $full_size_image_width = 1280;
+                        $full_size_image_height = 800;
+
+                        // создаем новое изображение
+                        $new_empty_full_size_image = imagecreatetruecolor($full_size_image_width, $full_size_image_height);
+
+                        // устанавливаем цвет фона
+                        $new_empty_full_size_image_with_bg = imagecolorallocate($new_empty_full_size_image, 255, 255, 255);
+                        imagefill($new_empty_full_size_image, 0, 0, $new_empty_full_size_image_with_bg);
+
+                        // определяем позиции и копируем шаблоны, изменяя размеры...
+
+                        // 1
+                        $top_1 = ($full_size_image_height - $opened_template_height) / 2;
+                        $left_1 = ($full_size_image_width - $opened_template_width) / 2;
+                        imagecopy($new_empty_full_size_image, $opened_template, $left_1, $top_1, 0, 0, $opened_template_width, $opened_template_height);
+
+                        // 2
+                        $top_2 = $top_1 + $opened_template_height;
+                        $left_2 = $left_1;
+                        $imgObj->resize($imgObj->textWidth / 2 + 45, $imgObj->textHeight / 2 + 45);
+                        imagecopy($new_empty_full_size_image, $imgObj->getImage(), $left_2, $top_2, 0, 0, $opened_template_width, $opened_template_height);
+
+
+                        // смотрим результат
+                        imagejpeg($new_empty_full_size_image, Yii::getAlias('@frontend/web/uploads/article_images/') . $model->id . '-qwe' . Article::DEFAULT_IMG_EXT, 100);
+                        $imgObj = $ih->load(Yii::getAlias('@frontend/web/uploads/article_images/') . $model->id . '-qwe' . Article::DEFAULT_IMG_EXT);
+                        var_dump($imgObj->show(false, 100));
+
+                        die;
                     }
                     return $this->redirect($model->url);
                 } else {

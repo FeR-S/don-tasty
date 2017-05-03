@@ -2,18 +2,19 @@
 
 use yii\db\Migration;
 
-class m170411_140615_alter_body_column_in_article_table extends Migration
+class m170503_153223_rename_categories_table extends Migration
 {
     public function up()
     {
-        $this->alterColumn('articles', 'body', $this->text());
+        $this->renameTable('categories', 'category');
     }
 
+    /**
+     * @inheritdoc
+     */
     public function down()
     {
-        echo "m170411_140615_alter_body_column_in_article_table cannot be reverted.\n";
-
-        return false;
+        $this->renameTable('category', 'categories');
     }
 
     /*

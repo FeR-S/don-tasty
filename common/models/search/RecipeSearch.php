@@ -1,17 +1,16 @@
 <?php
 
-namespace common\models;
+namespace common\models\search;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\ArticleComments;
-use yii\helpers\Html;
+use common\models\Recipe;
 
 /**
- * ArticleCommentsSearch represents the model behind the search form about `common\models\ArticleComments`.
+ * RecipeSearch represents the model behind the search form about `common\models\Recipe`.
  */
-class ArticleCommentsSearch extends ArticleComments
+class RecipeSearch extends Recipe
 {
     /**
      * @inheritdoc
@@ -19,9 +18,8 @@ class ArticleCommentsSearch extends ArticleComments
     public function rules()
     {
         return [
-            [['id', 'user_id', 'article_id', 'status'], 'integer'],
-            [['body'], 'required', 'message' => 'Для публикации Вашего комментария, заполните это поле.'],
-            [['created_at', 'updated_at', 'body'], 'safe'],
+            [['id', 'user_id', 'category_id', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['title', 'slug', 'description'], 'safe'],
         ];
     }
 
@@ -43,7 +41,7 @@ class ArticleCommentsSearch extends ArticleComments
      */
     public function search($params)
     {
-        $query = ArticleComments::find();
+        $query = Recipe::find();
 
         // add conditions that should always apply here
 
@@ -63,31 +61,16 @@ class ArticleCommentsSearch extends ArticleComments
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'article_id' => $this->article_id,
+            'category_id' => $this->category_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'body', $this->body]);
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'slug', $this->slug])
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
-    }
-
-
-    public function safeNewComment($article_id)
-    {
-        if($this->validate()){
-            $model = new ArticleComments();
-            $model->body = Html::encode(strip_tags($this->body));
-            if(!Yii::$app->user->isGuest) {
-                $model->user_id = Yii::$app->user->identity->getId();
-            }
-            $model->article_id = $article_id;
-
-            var_dump($model->getAttributes());die;
-        };
-
-        return false;
     }
 }

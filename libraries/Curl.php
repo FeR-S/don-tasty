@@ -6,10 +6,10 @@
  * (PHP 4, PHP 5)<br/>
  * получить страницу методом Get или Post с автоматическим сохранением кук
  * @author fStrange http://fstrange.ru
- * @param string  $su url
- * @param string  $suReferrer  Referrer
- * @param array  $aPost  POST data, array or uldecoded string
- * @param bool  $bSaveCookie
+ * @param string $su url
+ * @param string $suReferrer Referrer
+ * @param array $aPost POST data, array or uldecoded string
+ * @param bool $bSaveCookie
  * @return string $sHtml
  */
 class Curl
@@ -39,11 +39,11 @@ class Curl
         //curl_setopt($rCurl, CURLOPT_FOLLOWLOCATION, FALSE);   //no print
         curl_setopt($rCurl, CURLOPT_USERAGENT, $this->aBrowser['sUa']);
         curl_setopt($rCurl, CURLOPT_HEADER, true);
-        curl_setopt($rCurl, CURLOPT_REFERER,  $this->aBrowser['suReferrer']);
+        curl_setopt($rCurl, CURLOPT_REFERER, $this->aBrowser['suReferrer']);
 
         //curl_setopt($rCurl, CURLOPT_HTTPHEADER, $this->aBrowser['aHttp']); //our query
 
-        if($aPost){
+        if ($aPost) {
             curl_setopt($rCurl, CURLOPT_POST, 1);
             curl_setopt($rCurl, CURLOPT_POSTFIELDS, $aPost);  // array or url_encoded str
             // curl_setopt($rCurl, CURLOPT_HTTPHEADER, array("Content-type: application/x-www-form-urlencoded"));
@@ -60,15 +60,20 @@ class Curl
         // для каждого хоста отдельный домен
 
         $www = explode('/', $su);
-        curl_setopt($rCurl, CURLOPT_COOKIEJAR, dirname(__FILE__)."/../cookies/".$www[2].".txt");
-        curl_setopt($rCurl,CURLOPT_COOKIEFILE, dirname(__FILE__)."/../cookies/".$www[2].".txt");
+        curl_setopt($rCurl, CURLOPT_COOKIEJAR, dirname(__FILE__) . "/../cookies/" . $www[2] . ".txt");
+        curl_setopt($rCurl, CURLOPT_COOKIEFILE, dirname(__FILE__) . "/../cookies/" . $www[2] . ".txt");
 
-        curl_setopt($rCurl, CURLOPT_HTTPHEADER, array("Origin: ".$www[0]."//".$www[2]));
-        curl_setopt($rCurl, CURLOPT_HTTPHEADER, array("Host: ".$www[2]));
+        curl_setopt($rCurl, CURLOPT_HTTPHEADER, array("Origin: " . $www[0] . "//" . $www[2]));
+        curl_setopt($rCurl, CURLOPT_HTTPHEADER, array("Host: " . $www[2]));
 
         //send HTTP Query
         $sHtml = curl_exec($rCurl);
-        if(strpos($sHtml, '"\r\n\r\n"')) list($this->aBrowser['sHeader'], $sHtml) = explode("\r\n\r\n", $sHtml, 2);
+        $httpcode = curl_getinfo($rCurl, CURLINFO_HTTP_CODE);
+        if ($httpcode == '404') {
+            return false;
+        }
+
+        if (strpos($sHtml, '"\r\n\r\n"')) list($this->aBrowser['sHeader'], $sHtml) = explode("\r\n\r\n", $sHtml, 2);
         else $this->aBrowser['sHeader'] = $sHtml;
         //$this->BrowserCookie($bSaveCookie);
 
@@ -82,7 +87,7 @@ class Curl
         $location = $this->BrowserRedirect();
         if ($location) $sHtml = $location;
 
-        $this->aBrowser['suReferrer'] = $su ;
+        $this->aBrowser['suReferrer'] = $su;
 
         return $sHtml;
     }
@@ -94,13 +99,13 @@ class Curl
 
     protected function BrowserCookie($bSaveCookie)
     {
-        if(!$this->aBrowser['sHeader'] || !strpos($this->aBrowser['sHeader'], 'Set-Cookie')) return FALSE;
-        if(!$bSaveCookie) return FALSE ;
+        if (!$this->aBrowser['sHeader'] || !strpos($this->aBrowser['sHeader'], 'Set-Cookie')) return FALSE;
+        if (!$bSaveCookie) return FALSE;
 
         preg_match_all("/Set-Cookie: (.*?)=(.*?);/i", $this->aBrowser['sHeader'], $a);
-        if(isset($a[1])){
+        if (isset($a[1])) {
             foreach ($a[1] as $k => $v) $a0[$v] = $a[2][$k];
-            if(!empty($a0)) $this->BrowserCookieSave($a0, $this->aBrowser['sfBrowserCookie']);
+            if (!empty($a0)) $this->BrowserCookieSave($a0, $this->aBrowser['sfBrowserCookie']);
         }
 
         return TRUE;
@@ -108,29 +113,25 @@ class Curl
 
     protected function BrowserRedirect()
     {
-        if(!$this->aBrowser['sHeader'] && (!strpos($this->aBrowser['sHeader'], 'Location:') || !strpos($this->aBrowser['sHeader'], 'location:'))) return FALSE;
+        if (!$this->aBrowser['sHeader'] && (!strpos($this->aBrowser['sHeader'], 'Location:') || !strpos($this->aBrowser['sHeader'], 'location:'))) return FALSE;
 
         preg_match("#Location: (.*?)[\s\r\n]#is", $this->aBrowser['sHeader'], $a);
         //print_r($this->aBrowser['sHeader']);die;
-        if(isset($a[1]))
-        {
+        if (isset($a[1])) {
             $location = $a[1];
             if (substr($location, 0, 4) == 'http') $this->aBrowser['suLocation'] = $location;
-            elseif (substr($location, 0, 1) == '/')
-            {
+            elseif (substr($location, 0, 1) == '/') {
                 $host = explode('/', $this->aBrowser['su']);
-                $this->aBrowser['suLocation'] =  $host[0] . '//' . $host[2] . $location;
-            }
-            else {
+                $this->aBrowser['suLocation'] = $host[0] . '//' . $host[2] . $location;
+            } else {
                 $host = explode('/', $this->aBrowser['su']);
-                $this->aBrowser['suLocation'] =  $host[0] . '//' . $host[2] . '/' . $location;
+                $this->aBrowser['suLocation'] = $host[0] . '//' . $host[2] . '/' . $location;
             }
             //print_r($this->aBrowser['suLocation']);die;
-        }
-        else
+        } else
             $this->aBrowser['suLocation'] = '';
 
-        return  $this->aBrowser['suLocation'];
+        return $this->aBrowser['suLocation'];
     }
 
 
@@ -191,11 +192,11 @@ class Curl
         $a['google'] = 'Mozilla/5.0 (compatible; googlebot/2.1; +http://www.google.com/bot.html)'; */
 
         $this->aBrowser['aHttp'] = array(
-            'Accept'=>'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-            'Accept-encoding'=>'gzip,deflate',
-            'Accept-language'=>'ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4',
-            'Cache-control'=>'max-age=0',
-            'connection'=>'keep-alive'
+            'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-encoding' => 'gzip,deflate',
+            'Accept-language' => 'ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4',
+            'Cache-control' => 'max-age=0',
+            'connection' => 'keep-alive'
         );
         //Accept-Encoding: \n  need for nogzip http
 

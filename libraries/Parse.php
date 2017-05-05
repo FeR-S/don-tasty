@@ -22,11 +22,13 @@ class Parse
 
     public function get($link, $tags = NULL)
     {
-        $html = $this->curl->BrowserOpen($link);
-        if (is_null($tags))
-            return $this->is_utf8() ? $html : $this->decode_to_utf8($html);
-        else
-            return $this->parseHtml($html, $tags);
+        if ($html = $this->curl->BrowserOpen($link)) {
+            if (is_null($tags))
+                return $this->is_utf8() ? $html : $this->decode_to_utf8($html);
+            else
+                return $this->parseHtml($html, $tags);
+        };
+        return false;
     }
 
     public function decode_cp1251_to_utf8($string)

@@ -17,6 +17,8 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $status
  * @property string $slug
  * @property string $description
+ * @property json $instructions
+ * @property jsonb $ingredients
  */
 class Recipe extends \yii\db\ActiveRecord
 {
@@ -133,6 +135,8 @@ class Recipe extends \yii\db\ActiveRecord
             [['status'], 'in', 'range' => array_keys(self::getStatuses()), 'on' => self::SCENARIO_PUBLIC],
 
             [['user_id', 'category_id', 'created_at', 'updated_at', 'status'], 'integer'],
+
+            [['instructions', 'ingredients'], 'safe'],
         ];
     }
 

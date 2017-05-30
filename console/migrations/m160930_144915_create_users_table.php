@@ -34,3 +34,6 @@ class m160930_144915_create_users_table extends Migration
         $this->dropTable('users');
     }
 }
+
+
+

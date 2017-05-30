@@ -4,6 +4,7 @@ namespace common\components;
 
 use Yii;
 use yii\imagine\Image;
+use yii\base\Exception;
 
 /**
  * Image handler
@@ -487,7 +488,7 @@ class LImageHandler
     public static function getTextWidth($size, $angle, $fontFile, $text)
     {
         $bBox = imagettfbbox($size, $angle, $fontFile, $text);
-            $textWidth = $bBox[2] - $bBox[0];
+        $textWidth = $bBox[2] - $bBox[0];
         return $textWidth;
     }
 

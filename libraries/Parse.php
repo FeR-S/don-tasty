@@ -109,7 +109,7 @@ class Parse
 
             if (is_array($value['tag'])) {
                 $elements = $html;
-                foreach ($value['tag'] as $tag => $num) {
+                foreach ($value['tag'] as $num => $tag) {
                     if (!is_string($num)) {
                         $elements = $elements->find($tag, $num);
                         $get_all_elements = false;
@@ -123,19 +123,23 @@ class Parse
                 $get_all_elements = true;
             }
 
-            if ($get_all_elements)
-                foreach ($elements as $element) {
-                    if (is_array($attr)) {
-                        $qwe = [];
-                        foreach ($attr as $_attr) {
-                            $qwe[$_attr] = $this->getData($element->{$_attr}, isset($value['regExp']) ? $value['regExp'] : false);
+            if ($get_all_elements) {
+                if (isset($num)) {
+                    $data[$name] = $this->getData($elements[$num]->{$attr}, isset($value['regExp']) ? $value['regExp'] : false);
+                } else {
+                    foreach ($elements as $element) {
+                        if (is_array($attr)) {
+                            $qwe = [];
+                            foreach ($attr as $_attr) {
+                                $qwe[$_attr] = $this->getData($element->{$_attr}, isset($value['regExp']) ? $value['regExp'] : false);
+                            }
+                            $data[$name][] = $qwe;
+                        } else {
+                            $data[$name][] = $this->getData($element->{$attr}, isset($value['regExp']) ? $value['regExp'] : false);
                         }
-                        $data[$name][] = $qwe;
-                    } else {
-                        $data[$name][] = $this->getData($element->{$attr}, isset($value['regExp']) ? $value['regExp'] : false);
                     }
                 }
-            else {
+            } else {
                 $data[$name] = $this->getData($elements->{$attr}, isset($value['regExp']) ? $value['regExp'] : false);
             }
 
@@ -211,6 +215,14 @@ class Parse
         curl_close($ch);
         return $data;
         //done
+    }
+
+    public function getStrHtml($str, $tag, $num = null)
+    {
+        $html = new simple_html_dom();
+        $html->load($str);
+        $html->find($tag, $num); // убираем лишнее из html
+        $data[$name] = $this->getData($elements->{$attr}, isset($value['regExp']) ? $value['regExp'] : false);
     }
 
 

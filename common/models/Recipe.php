@@ -128,7 +128,7 @@ class Recipe extends \yii\db\ActiveRecord
             [['title'], 'required'],
             ['title', 'unique', 'message' => 'Такой заголовок уже существует. Заголовок статьи должен быть уникальным!'],
 
-            [['title', 'slug', 'description'], 'string', 'max' => 255],
+            [['title', 'slug'], 'string', 'max' => 255],
 
             [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'jpg'],
 
@@ -136,7 +136,7 @@ class Recipe extends \yii\db\ActiveRecord
 
             [['user_id', 'category_id', 'created_at', 'updated_at', 'status'], 'integer'],
 
-            [['instructions', 'ingredients'], 'safe'],
+            [['instructions', 'ingredients', 'description'], 'safe'],
         ];
     }
 

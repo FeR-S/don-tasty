@@ -59,7 +59,7 @@ class Category extends ActiveRecord
             [['parent_category_id'], 'integer'],
             [['description'], 'string'],
             ['parent_category_id', 'default', 'value' => 0],
-            [['title', 'slug'], 'string', 'max' => 255],
+            [['title', 'slug'], 'string', 'max' => 1024],
         ];
     }
 
